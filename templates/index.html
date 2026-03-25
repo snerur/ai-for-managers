@@ -1,0 +1,1700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI for Managers — Interactive Tutorial | Sridhar Nerur</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="/static/style.css"/>
+</head>
+<body>
+
+<!-- ═══════════════════════════════ HEADER ═══════════════════════════════ -->
+<header id="app-header">
+  <div style="display:flex;align-items:center;gap:.75rem">
+    <button class="btn-icon" onclick="toggleSidebar()" title="Toggle sidebar">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+    <div>
+      <h1><i class="fa-solid fa-brain" style="margin-right:.4rem"></i>AI for Managers <span>— Interactive Tutorial</span></h1>
+      <div style="font-size:.7rem;color:rgba(255,255,255,.65);margin-top:.1rem;letter-spacing:.02em">
+        Created by <strong style="color:rgba(255,255,255,.9)">Sridhar Nerur</strong> &nbsp;·&nbsp; Built with <strong style="color:rgba(255,255,255,.9)">Claude</strong> (Anthropic)
+      </div>
+    </div>
+  </div>
+  <div class="header-actions">
+    <button class="btn-icon" onclick="openSettings()" title="AI Assistant Settings">
+      <i class="fa-solid fa-gear"></i> Settings
+    </button>
+    <button class="btn-icon" onclick="toggleChat()" title="Open AI Tutor">
+      <i class="fa-solid fa-comments"></i> Ask AI
+    </button>
+  </div>
+</header>
+
+<div id="progress-bar-wrap"><div id="progress-bar"></div></div>
+
+<!-- ═══════════════════════════════ SIDEBAR ══════════════════════════════ -->
+<aside id="sidebar">
+  <div style="padding:1rem 1.25rem .5rem">
+    <div style="font-size:.78rem;color:var(--muted);margin-bottom:.5rem">YOUR PROGRESS</div>
+    <div style="background:#f1f5f9;border-radius:8px;height:8px;overflow:hidden">
+      <div id="progress-bar-sidebar" style="height:100%;background:linear-gradient(90deg,#4f46e5,#06b6d4);width:0%;transition:width .5s"></div>
+    </div>
+  </div>
+
+  <div class="sidebar-section-header">Modules</div>
+
+  <div class="nav-item" data-section="section-1" onclick="showSection('section-1')">
+    <span class="nav-icon"><i class="fa-solid fa-rocket"></i></span>
+    1. Introduction to AI
+    <i class="fa-solid fa-check nav-check"></i>
+  </div>
+  <div class="nav-sub-item" onclick="showSection('section-1');setTimeout(()=>scrollToSub('s1-definitions'),300)">Definitions</div>
+  <div class="nav-sub-item" onclick="showSection('section-1');setTimeout(()=>scrollToSub('s1-history'),300)">Brief History</div>
+  <div class="nav-sub-item" onclick="showSection('section-1');setTimeout(()=>scrollToSub('s1-opportunities'),300)">Opportunities & Challenges</div>
+  <div class="nav-sub-item" onclick="showSection('section-1');setTimeout(()=>scrollToSub('s1-quiz'),300)">Quiz</div>
+
+  <div class="nav-item" data-section="section-2" onclick="showSection('section-2')">
+    <span class="nav-icon"><i class="fa-solid fa-tag"></i></span>
+    2. Supervised Learning
+    <i class="fa-solid fa-check nav-check"></i>
+  </div>
+  <div class="nav-sub-item" onclick="showSection('section-2');setTimeout(()=>scrollToSub('s2-definition'),300)">Definition</div>
+  <div class="nav-sub-item" onclick="showSection('section-2');setTimeout(()=>scrollToSub('s2-types'),300)">Regression vs Classification</div>
+  <div class="nav-sub-item" onclick="showSection('section-2');setTimeout(()=>scrollToSub('s2-examples'),300)">Real-World Examples</div>
+  <div class="nav-sub-item" onclick="showSection('section-2');setTimeout(()=>scrollToSub('s2-quiz'),300)">Quiz</div>
+
+  <div class="nav-item" data-section="section-3" onclick="showSection('section-3')">
+    <span class="nav-icon"><i class="fa-solid fa-circle-nodes"></i></span>
+    3. Unsupervised Learning
+    <i class="fa-solid fa-check nav-check"></i>
+  </div>
+  <div class="nav-sub-item" onclick="showSection('section-3');setTimeout(()=>scrollToSub('s3-definition'),300)">Definition</div>
+  <div class="nav-sub-item" onclick="showSection('section-3');setTimeout(()=>scrollToSub('s3-examples'),300)">Examples & Algorithms</div>
+  <div class="nav-sub-item" onclick="showSection('section-3');setTimeout(()=>scrollToSub('s3-quiz'),300)">Quiz</div>
+
+  <div class="nav-item" data-section="section-4" onclick="showSection('section-4')">
+    <span class="nav-icon"><i class="fa-solid fa-gamepad"></i></span>
+    4. Reinforcement Learning
+    <i class="fa-solid fa-check nav-check"></i>
+  </div>
+  <div class="nav-sub-item" onclick="showSection('section-4');setTimeout(()=>scrollToSub('s4-definition'),300)">Definition</div>
+  <div class="nav-sub-item" onclick="showSection('section-4');setTimeout(()=>scrollToSub('s4-key-ideas'),300)">Key Ideas</div>
+  <div class="nav-sub-item" onclick="showSection('section-4');setTimeout(()=>scrollToSub('s4-examples'),300)">Real-World Examples</div>
+  <div class="nav-sub-item" onclick="showSection('section-4');setTimeout(()=>scrollToSub('s4-quiz'),300)">Quiz</div>
+
+  <div class="nav-item" data-section="section-5" onclick="showSection('section-5')">
+    <span class="nav-icon"><i class="fa-solid fa-scale-balanced"></i></span>
+    5. AI Ethics & Governance
+    <i class="fa-solid fa-check nav-check"></i>
+  </div>
+  <div class="nav-sub-item" onclick="showSection('section-5');setTimeout(()=>scrollToSub('s5-motivation'),300)">Motivation</div>
+  <div class="nav-sub-item" onclick="showSection('section-5');setTimeout(()=>scrollToSub('s5-theories'),300)">Ethical Theories</div>
+  <div class="nav-sub-item" onclick="showSection('section-5');setTimeout(()=>scrollToSub('s5-failures'),300)">Real-World Failures</div>
+  <div class="nav-sub-item" onclick="showSection('section-5');setTimeout(()=>scrollToSub('s5-frameworks'),300)">Governance Frameworks</div>
+  <div class="nav-sub-item" onclick="showSection('section-5');setTimeout(()=>scrollToSub('s5-policy'),300)">Building Ethical Policy</div>
+  <div class="nav-sub-item" onclick="showSection('section-5');setTimeout(()=>scrollToSub('s5-llm'),300)">LLM / GenAI Ethics</div>
+  <div class="nav-sub-item" onclick="showSection('section-5');setTimeout(()=>scrollToSub('s5-quiz'),300)">Quiz</div>
+
+  <div class="nav-item" data-section="section-6" onclick="showSection('section-6')">
+    <span class="nav-icon"><i class="fa-solid fa-building"></i></span>
+    6. Organizational Readiness
+    <i class="fa-solid fa-check nav-check"></i>
+  </div>
+  <div class="nav-sub-item" onclick="showSection('section-6');setTimeout(()=>scrollToSub('s6-maturity'),300)">AI Maturity Models</div>
+  <div class="nav-sub-item" onclick="showSection('section-6');setTimeout(()=>scrollToSub('s6-ai-first'),300)">Becoming AI-First</div>
+  <div class="nav-sub-item" onclick="showSection('section-6');setTimeout(()=>scrollToSub('s6-quiz'),300)">Quiz</div>
+
+  <div class="sidebar-section-header" style="margin-top:.5rem">Resources</div>
+  <div class="nav-item" data-section="section-7" onclick="showSection('section-7')">
+    <span class="nav-icon"><i class="fa-solid fa-book-bookmark"></i></span>
+    References
+    <i class="fa-solid fa-check nav-check"></i>
+  </div>
+  <div class="nav-sub-item" onclick="showSection('section-7');setTimeout(()=>scrollToSub('ref-books'),300)">Textbooks</div>
+  <div class="nav-sub-item" onclick="showSection('section-7');setTimeout(()=>scrollToSub('ref-papers'),300)">Research Papers</div>
+  <div class="nav-sub-item" onclick="showSection('section-7');setTimeout(()=>scrollToSub('ref-frameworks'),300)">Frameworks &amp; Reports</div>
+  <div class="nav-sub-item" onclick="showSection('section-7');setTimeout(()=>scrollToSub('ref-journalism'),300)">Journalism &amp; Case Studies</div>
+
+  <!-- Creator credit in sidebar footer -->
+  <div style="padding:1.25rem 1.25rem .75rem;margin-top:auto;border-top:1px solid var(--border);font-size:.75rem;color:var(--muted);line-height:1.6">
+    <div style="font-weight:700;color:var(--text);margin-bottom:.25rem">AI for Managers</div>
+    Created by <strong>Sridhar Nerur</strong><br/>
+    Built with <strong>Claude</strong> (Anthropic)<br/>
+    <span style="font-size:.7rem;opacity:.7">© 2025 · For educational use</span>
+  </div>
+</aside>
+
+<!-- ═══════════════════════════════ MAIN CONTENT ═════════════════════════ -->
+<main id="main">
+
+<!-- ─────────────────── SECTION 1: INTRO TO AI ─────────────────── -->
+<section id="section-1" class="tutorial-section">
+  <div class="section-hero">
+    <span class="hero-icon">🚀</span>
+    <h2>Introduction to Artificial Intelligence</h2>
+    <p>Understand the AI landscape — from foundational definitions to the historical breakthroughs that shaped today's technology — and discover how AI is transforming every industry.</p>
+  </div>
+
+  <!-- 1a: Definitions -->
+  <div id="s1-definitions"></div>
+  <div class="card">
+    <h3><i class="fa-solid fa-book-open" style="color:var(--primary)"></i> Defining the AI Landscape <span class="badge">1a</span></h3>
+    <p>These four terms are often used interchangeably in business conversations — but they have distinct meanings. Think of them as nested circles, each one living inside the previous.</p>
+
+    <!-- SVG: AI Hierarchy -->
+    <div class="diagram-wrap">
+      <svg viewBox="0 0 520 320" width="520" height="320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="AI hierarchy diagram">
+        <!-- AI circle -->
+        <ellipse cx="260" cy="160" rx="240" ry="145" fill="#eef2ff" stroke="#4f46e5" stroke-width="2.5"/>
+        <text x="60" y="56" font-size="14" font-weight="700" fill="#4f46e5" font-family="Inter,sans-serif">Artificial Intelligence</text>
+        <text x="60" y="72" font-size="11" fill="#6366f1" font-family="Inter,sans-serif">Simulating human intelligence</text>
+        <!-- ML circle -->
+        <ellipse cx="280" cy="170" rx="175" ry="105" fill="#ede9fe" stroke="#7c3aed" stroke-width="2.5"/>
+        <text x="130" y="102" font-size="13" font-weight="700" fill="#7c3aed" font-family="Inter,sans-serif">Machine Learning</text>
+        <text x="130" y="117" font-size="10" fill="#8b5cf6" font-family="Inter,sans-serif">Learning from data</text>
+        <!-- DL circle -->
+        <ellipse cx="295" cy="178" rx="110" ry="68" fill="#dbeafe" stroke="#2563eb" stroke-width="2.5"/>
+        <text x="215" y="158" font-size="12" font-weight="700" fill="#1d4ed8" font-family="Inter,sans-serif">Deep Learning</text>
+        <text x="215" y="172" font-size="10" fill="#3b82f6" font-family="Inter,sans-serif">Neural networks</text>
+        <!-- GenAI circle -->
+        <ellipse cx="305" cy="184" rx="58" ry="36" fill="#cffafe" stroke="#0891b2" stroke-width="2.5"/>
+        <text x="270" y="181" font-size="10" font-weight="700" fill="#0e7490" font-family="Inter,sans-serif">Gen AI</text>
+        <text x="267" y="194" font-size="9" fill="#0891b2" font-family="Inter,sans-serif">Creates content</text>
+      </svg>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.25rem">
+      <div style="background:#eef2ff;border-radius:10px;padding:1.1rem;border-left:4px solid #4f46e5">
+        <h5 style="font-weight:700;color:#4f46e5;margin-bottom:.4rem">🤖 Artificial Intelligence (AI)</h5>
+        <p style="font-size:.85rem;color:#374151;margin:0">The broad science of creating computer systems that can perform tasks requiring human-like intelligence — reasoning, learning, problem-solving, language understanding, and perception.</p>
+      </div>
+      <div style="background:#ede9fe;border-radius:10px;padding:1.1rem;border-left:4px solid #7c3aed">
+        <h5 style="font-weight:700;color:#7c3aed;margin-bottom:.4rem">📊 Machine Learning (ML)</h5>
+        <p style="font-size:.85rem;color:#374151;margin:0">A subset of AI where systems automatically learn and improve from <em>experience (data)</em> without being explicitly programmed. The more data they see, the better they get.</p>
+      </div>
+      <div style="background:#dbeafe;border-radius:10px;padding:1.1rem;border-left:4px solid #2563eb">
+        <h5 style="font-weight:700;color:#1d4ed8;margin-bottom:.4rem">🧠 Deep Learning (DL)</h5>
+        <p style="font-size:.85rem;color:#374151;margin:0">A subset of ML using artificial <em>neural networks</em> with many layers — inspired by the human brain. Excels at images, speech, and text. Powers facial recognition and voice assistants.</p>
+      </div>
+      <div style="background:#cffafe;border-radius:10px;padding:1.1rem;border-left:4px solid #0891b2">
+        <h5 style="font-weight:700;color:#0e7490;margin-bottom:.4rem">✨ Generative AI (GenAI)</h5>
+        <p style="font-size:.85rem;color:#374151;margin:0">AI that creates <em>new content</em> — text (ChatGPT), images (DALL-E), code (GitHub Copilot), and audio. Uses deep learning models trained on vast datasets.</p>
+      </div>
+    </div>
+
+    <div class="highlight-box cyan" style="margin-top:1.25rem">
+      <strong>Manager's Takeaway:</strong> When someone says "we should use AI," ask: do they mean ML (pattern recognition in data), deep learning (images/voice), or generative AI (content creation)? Each requires different data, skills, and investment.
+    </div>
+  </div>
+
+  <!-- 1b: History -->
+  <div id="s1-history"></div>
+  <div class="card">
+    <h3><i class="fa-solid fa-clock-rotate-left" style="color:var(--primary)"></i> A Brief History of AI <span class="badge">1b</span></h3>
+    <p>AI didn't emerge overnight. It has evolved through cycles of excitement and disappointment — known as "AI winters" — before reaching today's transformational era.</p>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div>
+          <div class="timeline-year">1950</div>
+          <div class="timeline-content">
+            <h5>Turing Test Proposed</h5>
+            <p>Alan Turing asks "Can machines think?" and proposes a test of machine intelligence — still debated today.</p>
+          </div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div>
+          <div class="timeline-year">1956</div>
+          <div class="timeline-content">
+            <h5>AI is Born — Dartmouth Conference</h5>
+            <p>John McCarthy coins "Artificial Intelligence." The field officially begins with great optimism.</p>
+          </div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div>
+          <div class="timeline-year">1970s–80s</div>
+          <div class="timeline-content">
+            <h5>Expert Systems Era</h5>
+            <p>Rule-based AI systems (e.g., MYCIN for medical diagnosis) achieve narrow successes. But scaling is hard — the first "AI winter" follows.</p>
+          </div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div>
+          <div class="timeline-year">1997</div>
+          <div class="timeline-content">
+            <h5>Deep Blue Defeats Kasparov</h5>
+            <p>IBM's Deep Blue defeats world chess champion Garry Kasparov — a landmark moment for AI in games.</p>
+          </div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div>
+          <div class="timeline-year">2012</div>
+          <div class="timeline-content">
+            <h5>Deep Learning Breakthrough — ImageNet</h5>
+            <p>AlexNet wins the ImageNet competition with a huge margin using deep neural networks. The modern AI era begins.</p>
+          </div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div>
+          <div class="timeline-year">2016</div>
+          <div class="timeline-content">
+            <h5>AlphaGo Defeats World Champion</h5>
+            <p>DeepMind's AlphaGo defeats Lee Sedol at Go — a game far more complex than chess — using deep reinforcement learning.</p>
+          </div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div>
+          <div class="timeline-year">2017</div>
+          <div class="timeline-content">
+            <h5>"Attention Is All You Need" — Transformers</h5>
+            <p>Google researchers publish the Transformer architecture — the foundation for GPT, BERT, and all modern LLMs.</p>
+          </div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot" style="background:var(--accent)"></div>
+        <div>
+          <div class="timeline-year">2022–Now</div>
+          <div class="timeline-content">
+            <h5>The Generative AI Revolution</h5>
+            <p>ChatGPT reaches 100 million users in 60 days. GPT-4, Claude, Gemini, and Llama reshape every industry. AI becomes mainstream business infrastructure.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1c: Opportunities & Challenges -->
+  <div id="s1-opportunities"></div>
+  <div class="card">
+    <h3><i class="fa-solid fa-lightbulb" style="color:var(--amber)"></i> Opportunities &amp; Challenges <span class="badge">1c</span></h3>
+
+    <div class="sub-section-title">Opportunities by Industry</div>
+    <div class="example-grid">
+      <div class="example-card">
+        <span class="ex-icon">🏥</span>
+        <h5>Healthcare</h5>
+        <p>AI diagnoses cancers from scans with radiologist-level accuracy. AlphaFold solved the 50-year protein folding problem — transforming drug discovery.</p>
+      </div>
+      <div class="example-card">
+        <span class="ex-icon">🏦</span>
+        <h5>Finance</h5>
+        <p>Real-time fraud detection saves billions annually. Algorithmic trading, credit scoring, and AI-powered financial advisors (robo-advisors) are mainstream.</p>
+      </div>
+      <div class="example-card">
+        <span class="ex-icon">🛍️</span>
+        <h5>Retail & E-commerce</h5>
+        <p>Amazon's recommendation engine drives 35% of revenue. AI powers dynamic pricing, inventory forecasting, and personalized marketing at scale.</p>
+      </div>
+      <div class="example-card">
+        <span class="ex-icon">🏭</span>
+        <h5>Manufacturing</h5>
+        <p>Predictive maintenance reduces unplanned downtime by 30–50%. Computer vision detects defects faster and more accurately than human inspectors.</p>
+      </div>
+      <div class="example-card">
+        <span class="ex-icon">🚗</span>
+        <h5>Transportation</h5>
+        <p>AI optimizes logistics routes (UPS saved 100M miles/year), powers autonomous vehicles, and enables real-time traffic management.</p>
+      </div>
+      <div class="example-card">
+        <span class="ex-icon">📚</span>
+        <h5>Education</h5>
+        <p>Personalized learning platforms adapt content to each student's pace. AI tutors provide 24/7 support and instant feedback.</p>
+      </div>
+    </div>
+
+    <div class="section-divider"></div>
+    <div class="sub-section-title">Key Challenges</div>
+    <div class="compare-grid">
+      <div style="background:#fef2f2;border-radius:10px;padding:1.25rem">
+        <h4 style="color:var(--red);margin-bottom:.75rem">⚠️ Technical Challenges</h4>
+        <ul style="color:#374151;font-size:.88rem;padding-left:1.1rem">
+          <li><strong>Data quality:</strong> AI is only as good as its training data. Poor data = unreliable models.</li>
+          <li><strong>Explainability:</strong> Many AI systems are "black boxes" — hard to audit or explain decisions.</li>
+          <li><strong>Scalability:</strong> Moving from pilot to enterprise-wide deployment is non-trivial.</li>
+          <li><strong>Talent gap:</strong> Demand for AI/ML skills far exceeds supply globally.</li>
+        </ul>
+      </div>
+      <div style="background:#fffbeb;border-radius:10px;padding:1.25rem">
+        <h4 style="color:var(--amber);margin-bottom:.75rem">⚖️ Organizational & Ethical Challenges</h4>
+        <ul style="color:#374151;font-size:.88rem;padding-left:1.1rem">
+          <li><strong>Bias &amp; fairness:</strong> Models trained on historical data can perpetuate or amplify past inequities.</li>
+          <li><strong>Regulatory uncertainty:</strong> The EU AI Act, US executive orders, and national laws are evolving rapidly.</li>
+          <li><strong>Change management:</strong> Workforce reskilling, job displacement fears, and cultural resistance.</li>
+          <li><strong>Security &amp; privacy:</strong> AI systems can be adversarial targets and may expose sensitive data.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quiz 1 -->
+  <div id="s1-quiz"></div>
+  <div id="quiz1-container"></div>
+  <div style="display:flex;justify-content:flex-end;margin-top:1.5rem">
+    <button class="btn-primary" onclick="showSection('section-2')">Next: Supervised Learning <i class="fa-solid fa-arrow-right"></i></button>
+  </div>
+</section>
+
+<!-- ─────────────────── SECTION 2: SUPERVISED LEARNING ─────────────────── -->
+<section id="section-2" class="tutorial-section">
+  <div class="section-hero">
+    <span class="hero-icon">🏷️</span>
+    <h2>Supervised Learning</h2>
+    <p>The most widely used form of machine learning in business. From predicting sales to detecting fraud, supervised learning powers decisions across every function.</p>
+  </div>
+
+  <!-- 2a: Definition -->
+  <div id="s2-definition"></div>
+  <div class="card">
+    <h3><i class="fa-solid fa-graduation-cap" style="color:var(--primary)"></i> What is Supervised Learning? <span class="badge">2a</span></h3>
+    <p>Supervised learning trains a model on <strong>labeled data</strong> — examples where both the input and the correct output are known. The algorithm learns to map inputs to outputs, then generalizes to new, unseen data.</p>
+
+    <!-- SVG: Supervised Learning Flow -->
+    <div class="diagram-wrap">
+      <svg viewBox="0 0 680 130" width="680" height="130" xmlns="http://www.w3.org/2000/svg">
+        <!-- Box 1 -->
+        <rect x="10" y="30" width="140" height="70" rx="12" fill="#eef2ff" stroke="#4f46e5" stroke-width="2"/>
+        <text x="80" y="60" text-anchor="middle" font-size="12" font-weight="700" fill="#4f46e5" font-family="Inter,sans-serif">Labeled Training</text>
+        <text x="80" y="76" text-anchor="middle" font-size="12" font-weight="700" fill="#4f46e5" font-family="Inter,sans-serif">Data</text>
+        <text x="80" y="90" text-anchor="middle" font-size="10" fill="#6366f1" font-family="Inter,sans-serif">(input + known output)</text>
+        <!-- Arrow 1 -->
+        <path d="M150 65 L190 65" stroke="#94a3b8" stroke-width="2" marker-end="url(#arr)"/>
+        <!-- Box 2 -->
+        <rect x="190" y="30" width="140" height="70" rx="12" fill="#ede9fe" stroke="#7c3aed" stroke-width="2"/>
+        <text x="260" y="60" text-anchor="middle" font-size="12" font-weight="700" fill="#7c3aed" font-family="Inter,sans-serif">ML Algorithm</text>
+        <text x="260" y="76" text-anchor="middle" font-size="10" fill="#8b5cf6" font-family="Inter,sans-serif">Learns patterns</text>
+        <text x="260" y="90" text-anchor="middle" font-size="10" fill="#8b5cf6" font-family="Inter,sans-serif">from examples</text>
+        <!-- Arrow 2 -->
+        <path d="M330 65 L370 65" stroke="#94a3b8" stroke-width="2" marker-end="url(#arr)"/>
+        <!-- Box 3 -->
+        <rect x="370" y="30" width="130" height="70" rx="12" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+        <text x="435" y="63" text-anchor="middle" font-size="12" font-weight="700" fill="#1d4ed8" font-family="Inter,sans-serif">Trained Model</text>
+        <text x="435" y="79" text-anchor="middle" font-size="10" fill="#3b82f6" font-family="Inter,sans-serif">(learned function)</text>
+        <!-- Arrow 3 -->
+        <path d="M500 65 L540 65" stroke="#94a3b8" stroke-width="2" marker-end="url(#arr)"/>
+        <!-- Box 4 -->
+        <rect x="540" y="30" width="130" height="70" rx="12" fill="#d1fae5" stroke="#059669" stroke-width="2"/>
+        <text x="605" y="60" text-anchor="middle" font-size="12" font-weight="700" fill="#065f46" font-family="Inter,sans-serif">Predictions on</text>
+        <text x="605" y="76" text-anchor="middle" font-size="12" font-weight="700" fill="#065f46" font-family="Inter,sans-serif">New Data</text>
+        <text x="605" y="90" text-anchor="middle" font-size="10" fill="#059669" font-family="Inter,sans-serif">(never seen before)</text>
+        <!-- Arrowhead marker -->
+        <defs><marker id="arr" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#94a3b8"/></marker></defs>
+      </svg>
+    </div>
+
+    <div class="highlight-box">
+      <strong>Analogy:</strong> Think of supervised learning like training a new employee using past examples. You show them thousands of customer cases with the correct outcome ("approved" / "denied"). Over time, they learn the patterns and can handle new cases independently.
+    </div>
+  </div>
+
+  <!-- 2b: Regression vs Classification -->
+  <div id="s2-types"></div>
+  <div class="card">
+    <h3><i class="fa-solid fa-code-branch" style="color:var(--primary)"></i> Regression vs. Classification <span class="badge">2b</span></h3>
+    <p>Supervised learning has two major flavors, distinguished by the type of output they predict:</p>
+
+    <div class="compare-grid">
+      <div class="compare-col left">
+        <h4 style="color:var(--primary)">📈 Regression</h4>
+        <p style="font-size:.88rem;color:#475569">Predicts a <strong>continuous numerical value</strong>.</p>
+        <p style="font-size:.85rem;color:#475569"><strong>Think:</strong> "How much?" or "How many?"</p>
+        <p style="font-size:.85rem;font-weight:700;margin-top:.75rem">Examples:</p>
+        <ul style="font-size:.85rem;color:#475569;padding-left:1.1rem">
+          <li>What will quarterly revenue be?</li>
+          <li>What price should we charge?</li>
+          <li>How long will delivery take?</li>
+          <li>What will energy consumption be tomorrow?</li>
+        </ul>
+        <p style="font-size:.85rem;font-weight:700;margin-top:.75rem">Common Algorithms:</p>
+        <div><span class="tag tag-blue">Linear Regression</span><span class="tag tag-blue">Decision Tree</span><span class="tag tag-blue">Random Forest</span><span class="tag tag-blue">XGBoost</span><span class="tag tag-blue">Neural Networks</span></div>
+      </div>
+      <div class="compare-col right">
+        <h4 style="color:var(--accent)">🏷️ Classification</h4>
+        <p style="font-size:.88rem;color:#475569">Predicts a <strong>category or label</strong>.</p>
+        <p style="font-size:.85rem;color:#475569"><strong>Think:</strong> "Which group?" or "Is it X or Y?"</p>
+        <p style="font-size:.85rem;font-weight:700;margin-top:.75rem">Examples:</p>
+        <ul style="font-size:.85rem;color:#475569;padding-left:1.1rem">
+          <li>Is this email spam or not spam?</li>
+          <li>Will this customer churn? (Yes/No)</li>
+          <li>Is this transaction fraudulent?</li>
+          <li>Is this tumor benign or malignant?</li>
+        </ul>
+        <p style="font-size:.85rem;font-weight:700;margin-top:.75rem">Common Algorithms:</p>
+        <div><span class="tag tag-cyan">Logistic Regression</span><span class="tag tag-cyan">Decision Tree</span><span class="tag tag-cyan">Random Forest</span><span class="tag tag-cyan">SVM</span><span class="tag tag-cyan">Neural Networks</span></div>
+      </div>
+    </div>
+
+    <!-- SVG: Regression vs Classification Visualization -->
+    <div class="diagram-wrap" style="margin-top:1.25rem">
+      <svg viewBox="0 0 560 220" width="560" height="220" xmlns="http://www.w3.org/2000/svg">
+        <!-- REGRESSION PANEL -->
+        <rect x="10" y="10" width="250" height="200" rx="12" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+        <text x="135" y="32" text-anchor="middle" font-size="13" font-weight="700" fill="#4f46e5" font-family="Inter,sans-serif">Regression</text>
+        <!-- Axes -->
+        <line x1="40" y1="170" x2="245" y2="170" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="40" y1="50" x2="40" y2="170" stroke="#94a3b8" stroke-width="1.5"/>
+        <text x="145" y="190" text-anchor="middle" font-size="9" fill="#94a3b8" font-family="Inter,sans-serif">House Size (sqft)</text>
+        <text x="20" y="115" text-anchor="middle" font-size="9" fill="#94a3b8" font-family="Inter,sans-serif" transform="rotate(-90,20,115)">Price ($)</text>
+        <!-- Data points -->
+        <circle cx="65" cy="155" r="4" fill="#4f46e5"/><circle cx="85" cy="145" r="4" fill="#4f46e5"/>
+        <circle cx="105" cy="133" r="4" fill="#4f46e5"/><circle cx="125" cy="122" r="4" fill="#4f46e5"/>
+        <circle cx="145" cy="115" r="4" fill="#4f46e5"/><circle cx="165" cy="100" r="4" fill="#4f46e5"/>
+        <circle cx="185" cy="92" r="4" fill="#4f46e5"/><circle cx="205" cy="80" r="4" fill="#4f46e5"/>
+        <circle cx="225" cy="72" r="4" fill="#4f46e5"/>
+        <!-- Regression line -->
+        <line x1="55" y1="160" x2="235" y2="68" stroke="#ef4444" stroke-width="2.5" stroke-dasharray="none"/>
+        <text x="195" y="63" font-size="9" fill="#ef4444" font-family="Inter,sans-serif" font-weight="600">best fit line</text>
+
+        <!-- CLASSIFICATION PANEL -->
+        <rect x="300" y="10" width="250" height="200" rx="12" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+        <text x="425" y="32" text-anchor="middle" font-size="13" font-weight="700" fill="#0e7490" font-family="Inter,sans-serif">Classification</text>
+        <!-- Axes -->
+        <line x1="330" y1="170" x2="535" y2="170" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="330" y1="50" x2="330" y2="170" stroke="#94a3b8" stroke-width="1.5"/>
+        <text x="435" y="190" text-anchor="middle" font-size="9" fill="#94a3b8" font-family="Inter,sans-serif">Feature 1</text>
+        <text x="312" y="115" text-anchor="middle" font-size="9" fill="#94a3b8" font-family="Inter,sans-serif" transform="rotate(-90,312,115)">Feature 2</text>
+        <!-- Class A points (blue circles) -->
+        <circle cx="365" cy="155" r="5" fill="#4f46e5" opacity=".8"/><circle cx="380" cy="143" r="5" fill="#4f46e5" opacity=".8"/>
+        <circle cx="355" cy="138" r="5" fill="#4f46e5" opacity=".8"/><circle cx="370" cy="128" r="5" fill="#4f46e5" opacity=".8"/>
+        <circle cx="390" cy="148" r="5" fill="#4f46e5" opacity=".8"/>
+        <!-- Class B points (green circles) -->
+        <circle cx="470" cy="90" r="5" fill="#10b981" opacity=".8"/><circle cx="490" cy="80" r="5" fill="#10b981" opacity=".8"/>
+        <circle cx="460" cy="75" r="5" fill="#10b981" opacity=".8"/><circle cx="480" cy="100" r="5" fill="#10b981" opacity=".8"/>
+        <circle cx="500" cy="70" r="5" fill="#10b981" opacity=".8"/>
+        <!-- Decision boundary -->
+        <line x1="430" y1="55" x2="415" y2="170" stroke="#f59e0b" stroke-width="2" stroke-dasharray="6,3"/>
+        <text x="438" y="75" font-size="9" fill="#f59e0b" font-family="Inter,sans-serif" font-weight="600">decision</text>
+        <text x="438" y="87" font-size="9" fill="#f59e0b" font-family="Inter,sans-serif" font-weight="600">boundary</text>
+        <!-- Labels -->
+        <text x="362" y="172" font-size="9" fill="#4f46e5" font-family="Inter,sans-serif" font-weight="600">● Class A</text>
+        <text x="462" y="172" font-size="9" fill="#10b981" font-family="Inter,sans-serif" font-weight="600">● Class B</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- 2c: Real-world examples -->
+  <div id="s2-examples"></div>
+  <div class="card">
+    <h3><i class="fa-solid fa-briefcase" style="color:var(--primary)"></i> Real-World Business Applications <span class="badge">2c</span></h3>
+
+    <div class="sub-section-title">Regression in Action</div>
+    <div class="example-grid">
+      <div class="example-card">
+        <span class="ex-icon">💰</span>
+        <h5>Sales Forecasting</h5>
+        <p>Predict future revenue based on marketing spend, seasonality, and economic indicators. Helps CFOs plan budgets accurately.</p>
+      </div>
+      <div class="example-card">
+        <span class="ex-icon">🏠</span>
+        <h5>Real Estate Pricing</h5>
+        <p>Zillow's "Zestimate" uses regression to value 100M+ homes from 200+ variables — location, size, amenities, recent sales.</p>
+      </div>
+      <div class="example-card">
+        <span class="ex-icon">⚡</span>
+        <h5>Energy Demand</h5>
+        <p>Utilities predict hourly electricity demand to balance the grid, reducing waste and preventing blackouts.</p>
+      </div>
+    </div>
+
+    <div class="sub-section-title" style="margin-top:1.25rem">Classification in Action</div>
+    <div class="example-grid">
+      <div class="example-card">
+        <span class="ex-icon">🔒</span>
+        <h5>Fraud Detection</h5>
+        <p>Banks classify each transaction as legitimate or fraudulent in milliseconds. Visa and Mastercard prevent billions in annual losses.</p>
+      </div>
+      <div class="example-card">
+        <span class="ex-icon">📧</span>
+        <h5>Email Spam Filter</h5>
+        <p>Gmail's spam filter classifies 15 billion emails daily with 99.9% accuracy — saving professionals hours per week.</p>
+      </div>
+      <div class="example-card">
+        <span class="ex-icon">🏃</span>
+        <h5>Customer Churn</h5>
+        <p>Telecoms predict which customers will cancel service next month, enabling proactive retention offers before they leave.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quiz 2 -->
+  <div id="s2-quiz"></div>
+  <div id="quiz2-container"></div>
+  <div style="display:flex;justify-content:space-between;margin-top:1.5rem">
+    <button class="btn-secondary" onclick="showSection('section-1')"><i class="fa-solid fa-arrow-left"></i> Previous</button>
+    <button class="btn-primary" onclick="showSection('section-3')">Next: Unsupervised Learning <i class="fa-solid fa-arrow-right"></i></button>
+  </div>
+</section>
+
+<!-- ─────────────────── SECTION 3: UNSUPERVISED LEARNING ─────────────────── -->
+<section id="section-3" class="tutorial-section">
+  <div class="section-hero">
+    <span class="hero-icon">🔍</span>
+    <h2>Unsupervised Learning</h2>
+    <p>Discover hidden patterns and structure in data — no labels required. Unsupervised learning is how machines find customer segments, detect anomalies, and surface insights no human thought to look for.</p>
+  </div>
+
+  <!-- 3a: Definition -->
+  <div id="s3-definition"></div>
+  <div class="card">
+    <h3><i class="fa-solid fa-magnifying-glass" style="color:var(--primary)"></i> What is Unsupervised Learning? <span class="badge">3a</span></h3>
+    <p>Unlike supervised learning, unsupervised learning works with <strong>unlabeled data</strong> — there's no correct answer to learn from. Instead, the algorithm discovers hidden structures, groupings, or patterns on its own.</p>
+
+    <div class="compare-grid">
+      <div style="background:#eef2ff;border-radius:10px;padding:1.1rem;border:1px solid #c7d2fe">
+        <h5 style="font-weight:700;color:var(--primary);margin-bottom:.5rem">Supervised Learning</h5>
+        <p style="font-size:.85rem;color:#475569">Data is labeled: "This customer churned." "This transaction was fraud." The model learns from known examples.</p>
+      </div>
+      <div style="background:#d1fae5;border-radius:10px;padding:1.1rem;border:1px solid #6ee7b7">
+        <h5 style="font-weight:700;color:#065f46;margin-bottom:.5rem">Unsupervised Learning</h5>
+        <p style="font-size:.85rem;color:#475569">No labels. The model says "I notice these 5 customer types naturally cluster together" — without being told what to find.</p>
+      </div>
+    </div>
+
+    <div class="highlight-box green" style="margin-top:1.25rem">
+      <strong>Analogy:</strong> Imagine dropping a new employee into a large customer database with no instructions. They start noticing patterns: "These customers all buy premium products late at night..." That's unsupervised learning — self-directed pattern discovery.
+    </div>
+  </div>
+
+  <!-- 3b: Examples & Algorithms -->
+  <div id="s3-examples"></div>
+  <div class="card">
+    <h3><i class="fa-solid fa-diagram-project" style="color:var(--primary)"></i> Techniques, Algorithms &amp; Real-World Examples <span class="badge">3b</span></h3>
+
+    <!-- SVG Clustering Visualization -->
+    <div class="diagram-wrap">
+      <svg viewBox="0 0 520 220" width="520" height="220" xmlns="http://www.w3.org/2000/svg">
+        <text x="260" y="22" text-anchor="middle" font-size="14" font-weight="700" fill="#1e293b" font-family="Inter,sans-serif">K-Means Clustering: Customer Segmentation</text>
+        <!-- Cluster 1 (purple - premium) -->
+        <circle cx="100" cy="80" r="40" fill="#ede9fe" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="5,3"/>
+        <circle cx="90" cy="72" r="6" fill="#7c3aed"/><circle cx="108" cy="68" r="6" fill="#7c3aed"/>
+        <circle cx="95" cy="88" r="6" fill="#7c3aed"/><circle cx="112" cy="82" r="6" fill="#7c3aed"/>
+        <circle cx="85" cy="92" r="6" fill="#7c3aed"/>
+        <text x="100" y="135" text-anchor="middle" font-size="11" font-weight="700" fill="#7c3aed" font-family="Inter,sans-serif">Premium Buyers</text>
+        <!-- Cluster 2 (blue - regular) -->
+        <circle cx="260" cy="130" r="45" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="5,3"/>
+        <circle cx="248" cy="120" r="6" fill="#2563eb"/><circle cx="270" cy="115" r="6" fill="#2563eb"/>
+        <circle cx="255" cy="138" r="6" fill="#2563eb"/><circle cx="272" cy="135" r="6" fill="#2563eb"/>
+        <circle cx="245" cy="142" r="6" fill="#2563eb"/><circle cx="278" cy="120" r="6" fill="#2563eb"/>
+        <text x="260" y="187" text-anchor="middle" font-size="11" font-weight="700" fill="#2563eb" font-family="Inter,sans-serif">Regular Shoppers</text>
+        <!-- Cluster 3 (green - bargain) -->
+        <circle cx="420" cy="80" r="38" fill="#d1fae5" stroke="#059669" stroke-width="1.5" stroke-dasharray="5,3"/>
+        <circle cx="410" cy="70" r="6" fill="#059669"/><circle cx="428" cy="68" r="6" fill="#059669"/>
+        <circle cx="415" cy="85" r="6" fill="#059669"/><circle cx="432" cy="82" r="6" fill="#059669"/>
+        <circle cx="405" cy="88" r="6" fill="#059669"/>
+        <text x="420" y="130" text-anchor="middle" font-size="11" font-weight="700" fill="#059669" font-family="Inter,sans-serif">Bargain Hunters</text>
+        <!-- Centroids -->
+        <polygon points="100,80 94,92 106,92" fill="#fff" stroke="#7c3aed" stroke-width="2"/>
+        <polygon points="260,130 254,142 266,142" fill="#fff" stroke="#2563eb" stroke-width="2"/>
+        <polygon points="420,80 414,92 426,92" fill="#fff" stroke="#059669" stroke-width="2"/>
+        <text x="100" y="110" text-anchor="middle" font-size="9" fill="#7c3aed" font-family="Inter,sans-serif">centroid ▲</text>
+      </svg>
+    </div>
+
+    <table class="styled-table">
+      <thead>
+        <tr>
+          <th>Technique</th>
+          <th>What It Does</th>
+          <th>Key Algorithms</th>
+          <th>Business Use Case</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="tag tag-purple">Clustering</span></td>
+          <td>Groups similar data points together</td>
+          <td>K-Means, DBSCAN, Hierarchical</td>
+          <td>Customer segmentation, document grouping</td>
+        </tr>
+        <tr>
+          <td><span class="tag tag-blue">Dimensionality Reduction</span></td>
+          <td>Reduces variables while retaining information</td>
+          <td>PCA, t-SNE, UMAP, Autoencoders</td>
+          <td>Visualizing complex data, compressing features</td>
+        </tr>
+        <tr>
+          <td><span class="tag tag-red">Anomaly Detection</span></td>
+          <td>Identifies unusual patterns that deviate from the norm</td>
+          <td>Isolation Forest, One-Class SVM, Autoencoders</td>
+          <td>Fraud detection, equipment failure prediction, cybersecurity</td>
+        </tr>
+        <tr>
+          <td><span class="tag tag-green">Association Rules</span></td>
+          <td>Finds items that frequently co-occur</td>
+          <td>Apriori, FP-Growth</td>
+          <td>Market basket analysis, cross-selling, recommender systems</td>
+        </tr>
+        <tr>
+          <td><span class="tag tag-amber">Topic Modeling</span></td>
+          <td>Discovers themes in collections of documents</td>
+          <td>LDA, NMF</td>
+          <td>Analyzing customer reviews, news classification, support tickets</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="section-divider"></div>
+    <div class="sub-section-title">Spotlight: The "Beer &amp; Diapers" Insight</div>
+    <div class="callout">
+      <span class="callout-icon">🍺</span>
+      <div class="callout-content">
+        <h5>The Famous Retail Discovery</h5>
+        <p>Walmart's data scientists discovered through association rule mining that customers who bought diapers on Thursday evenings also frequently bought beer. The insight: new dads doing diaper runs were stocking up for weekend plans. Walmart placed beer near the diaper section — and sales of both products increased. This is unsupervised learning creating business value no human hypothesized.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quiz 3 -->
+  <div id="s3-quiz"></div>
+  <div id="quiz3-container"></div>
+  <div style="display:flex;justify-content:space-between;margin-top:1.5rem">
+    <button class="btn-secondary" onclick="showSection('section-2')"><i class="fa-solid fa-arrow-left"></i> Previous</button>
+    <button class="btn-primary" onclick="showSection('section-4')">Next: Reinforcement Learning <i class="fa-solid fa-arrow-right"></i></button>
+  </div>
+</section>
+
+<!-- ─────────────────── SECTION 4: REINFORCEMENT LEARNING ─────────────────── -->
+<section id="section-4" class="tutorial-section">
+  <div class="section-hero">
+    <span class="hero-icon">🎮</span>
+    <h2>Reinforcement Learning</h2>
+    <p>The AI paradigm closest to how humans and animals naturally learn — through trial, error, and reward. From game-playing champions to autonomous robots, RL pushes the frontiers of what AI can achieve.</p>
+  </div>
+
+  <!-- 4a: Definition -->
+  <div id="s4-definition"></div>
+  <div class="card">
+    <h3><i class="fa-solid fa-robot" style="color:var(--primary)"></i> What is Reinforcement Learning? <span class="badge">4a</span></h3>
+    <p>Reinforcement Learning (RL) is a type of machine learning where an <strong>agent</strong> learns to make decisions by interacting with an <strong>environment</strong>. The agent receives <strong>rewards</strong> for good actions and penalties for bad ones, and over time learns a strategy (called a <em>policy</em>) that maximizes long-term cumulative reward.</p>
+    <div class="highlight-box">
+      <strong>Analogy:</strong> Think of training a dog. You don't show it labeled examples of "correct" vs "incorrect" behavior. Instead, you reward it with treats when it does something right and withhold rewards (or say "no") when it doesn't. The dog learns which behaviors lead to rewards — that's reinforcement learning.
+    </div>
+  </div>
+
+  <!-- 4b: Key Ideas -->
+  <div id="s4-key-ideas"></div>
+  <div class="card">
+    <h3><i class="fa-solid fa-key" style="color:var(--primary)"></i> Key Concepts in Reinforcement Learning <span class="badge">4b</span></h3>
+
+    <!-- SVG: RL Loop -->
+    <div class="diagram-wrap">
+      <svg viewBox="0 0 560 240" width="560" height="240" xmlns="http://www.w3.org/2000/svg">
+        <!-- Agent box -->
+        <rect x="30" y="80" width="160" height="80" rx="14" fill="#eef2ff" stroke="#4f46e5" stroke-width="2.5"/>
+        <text x="110" y="113" text-anchor="middle" font-size="20" font-family="sans-serif">🤖</text>
+        <text x="110" y="135" text-anchor="middle" font-size="13" font-weight="700" fill="#4f46e5" font-family="Inter,sans-serif">AGENT</text>
+        <text x="110" y="150" text-anchor="middle" font-size="10" fill="#6366f1" font-family="Inter,sans-serif">Decision maker</text>
+        <!-- Environment box -->
+        <rect x="370" y="80" width="160" height="80" rx="14" fill="#d1fae5" stroke="#059669" stroke-width="2.5"/>
+        <text x="450" y="113" text-anchor="middle" font-size="20" font-family="sans-serif">🌍</text>
+        <text x="450" y="135" text-anchor="middle" font-size="13" font-weight="700" fill="#065f46" font-family="Inter,sans-serif">ENVIRONMENT</text>
+        <text x="450" y="150" text-anchor="middle" font-size="10" fill="#059669" font-family="Inter,sans-serif">World / Context</text>
+        <!-- Action arrow (top) -->
+        <path d="M190 100 Q280 40 370 100" fill="none" stroke="#7c3aed" stroke-width="2.5" marker-end="url(#arr2)"/>
+        <text x="280" y="55" text-anchor="middle" font-size="11" font-weight="700" fill="#7c3aed" font-family="Inter,sans-serif">ACTION</text>
+        <text x="280" y="68" text-anchor="middle" font-size="10" fill="#8b5cf6" font-family="Inter,sans-serif">"What the agent does"</text>
+        <!-- State + Reward arrow (bottom) -->
+        <path d="M370 140 Q280 200 190 140" fill="none" stroke="#ef4444" stroke-width="2.5" marker-end="url(#arr3)"/>
+        <text x="280" y="195" text-anchor="middle" font-size="11" font-weight="700" fill="#ef4444" font-family="Inter,sans-serif">STATE + REWARD</text>
+        <text x="280" y="210" text-anchor="middle" font-size="10" fill="#f87171" font-family="Inter,sans-serif">"What happened? Was it good?"</text>
+        <!-- Arrowhead markers -->
+        <defs>
+          <marker id="arr2" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#7c3aed"/></marker>
+          <marker id="arr3" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#ef4444"/></marker>
+        </defs>
+      </svg>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1rem">
+      <div style="background:#eef2ff;border-radius:10px;padding:1rem;text-align:center">
+        <div style="font-size:1.5rem;margin-bottom:.4rem">🎯</div>
+        <h5 style="font-weight:700;color:var(--primary);margin-bottom:.3rem">State</h5>
+        <p style="font-size:.82rem;color:#475569;margin:0">The current situation or observation the agent perceives. Example: the current board position in chess.</p>
+      </div>
+      <div style="background:#ede9fe;border-radius:10px;padding:1rem;text-align:center">
+        <div style="font-size:1.5rem;margin-bottom:.4rem">⚡</div>
+        <h5 style="font-weight:700;color:#7c3aed;margin-bottom:.3rem">Action</h5>
+        <p style="font-size:.82rem;color:#475569;margin:0">What the agent does in a given state. Example: moving a chess piece, adjusting a price, choosing a route.</p>
+      </div>
+      <div style="background:#fef3c7;border-radius:10px;padding:1rem;text-align:center">
+        <div style="font-size:1.5rem;margin-bottom:.4rem">🏆</div>
+        <h5 style="font-weight:700;color:#92400e;margin-bottom:.3rem">Reward</h5>
+        <p style="font-size:.82rem;color:#475569;margin:0">Feedback signal after an action. Positive for good outcomes, negative for bad ones. The agent learns to maximize total reward.</p>
+      </div>
+      <div style="background:#d1fae5;border-radius:10px;padding:1rem;text-align:center">
+        <div style="font-size:1.5rem;margin-bottom:.4rem">🗺️</div>
+        <h5 style="font-weight:700;color:#065f46;margin-bottom:.3rem">Policy</h5>
+        <p style="font-size:.82rem;color:#475569;margin:0">The agent's strategy — a mapping from states to actions. This is what the agent is trying to learn and optimize over time.</p>
+      </div>
+      <div style="background:#cffafe;border-radius:10px;padding:1rem;text-align:center">
+        <div style="font-size:1.5rem;margin-bottom:.4rem">🔭</div>
+        <h5 style="font-weight:700;color:#0e7490;margin-bottom:.3rem">Exploration</h5>
+        <p style="font-size:.82rem;color:#475569;margin:0">Trying new actions to discover potentially better strategies — even if known actions are "good enough."</p>
+      </div>
+      <div style="background:#fce7f3;border-radius:10px;padding:1rem;text-align:center">
+        <div style="font-size:1.5rem;margin-bottom:.4rem">💡</div>
+        <h5 style="font-weight:700;color:#9d174d;margin-bottom:.3rem">Exploitation</h5>
+        <p style="font-size:.82rem;color:#475569;margin:0">Using known good actions to maximize reward. The fundamental tradeoff: explore new options or exploit what works?</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4c: Real-world examples -->
+  <div id="s4-examples"></div>
+  <div class="card">
+    <h3><i class="fa-solid fa-trophy" style="color:var(--amber)"></i> Real-World Applications of RL <span class="badge">4c</span></h3>
+    <div class="example-grid">
+      <div class="example-card">
+        <span class="ex-icon">♟️</span>
+        <h5>AlphaGo &amp; AlphaZero</h5>
+        <p>DeepMind's AlphaZero mastered chess, Go, and shogi to superhuman level — by playing millions of games against itself with zero human knowledge beyond the rules.</p>
+      </div>
+      <div class="example-card">
+        <span class="ex-icon">🤖</span>
+        <h5>Robotics</h5>
+        <p>Boston Dynamics and Google's robotics teams use RL to teach robots to walk, balance, and manipulate objects — learning from physical trial and error.</p>
+      </div>
+      <div class="example-card">
+        <span class="ex-icon">📱</span>
+        <h5>Content Recommendation</h5>
+        <p>YouTube, Netflix, and TikTok use RL to optimize what to show you next — learning which content sequences maximize watch time and engagement.</p>
+      </div>
+      <div class="example-card">
+        <span class="ex-icon">🏭</span>
+        <h5>Data Center Cooling</h5>
+        <p>Google DeepMind used RL to optimize data center cooling — reducing cooling energy by 40% by learning the complex, delayed relationships between actions and outcomes.</p>
+      </div>
+      <div class="example-card">
+        <span class="ex-icon">💹</span>
+        <h5>Algorithmic Trading</h5>
+        <p>RL agents learn trading strategies by being rewarded for profitable trades and penalized for losses — adapting to changing market conditions dynamically.</p>
+      </div>
+      <div class="example-card">
+        <span class="ex-icon">🚗</span>
+        <h5>Autonomous Vehicles</h5>
+        <p>Self-driving systems use RL (combined with other techniques) to learn safe driving policies through simulation before real-world deployment.</p>
+      </div>
+    </div>
+
+    <div class="highlight-box amber" style="margin-top:1.25rem">
+      <strong>Manager's Reality Check:</strong> RL is powerful but complex. It requires clearly defined reward functions, which is harder than it sounds — a poorly defined reward can lead to "reward hacking" where the AI achieves the goal in an unexpected or undesired way. Most business AI uses supervised or unsupervised learning; RL is for sequential decision-making problems.
+    </div>
+  </div>
+
+  <!-- Quiz 4 -->
+  <div id="s4-quiz"></div>
+  <div id="quiz4-container"></div>
+  <div style="display:flex;justify-content:space-between;margin-top:1.5rem">
+    <button class="btn-secondary" onclick="showSection('section-3')"><i class="fa-solid fa-arrow-left"></i> Previous</button>
+    <button class="btn-primary" onclick="showSection('section-5')">Next: AI Ethics &amp; Governance <i class="fa-solid fa-arrow-right"></i></button>
+  </div>
+</section>
+
+<!-- ─────────────────── SECTION 5: AI ETHICS & GOVERNANCE ─────────────────── -->
+<section id="section-5" class="tutorial-section">
+  <div class="section-hero">
+    <span class="hero-icon">⚖️</span>
+    <h2>AI Ethics &amp; Governance</h2>
+    <p>With great power comes great responsibility. Understanding AI ethics isn't optional for managers — it's how you protect your customers, employees, and organization from real harm.</p>
+  </div>
+
+  <!-- 5a: Motivation -->
+  <div id="s5-motivation"></div>
+  <div class="card">
+    <h3><i class="fa-solid fa-triangle-exclamation" style="color:var(--red)"></i> Why AI Ethics Matters <span class="badge">5a</span></h3>
+    <p>AI systems make decisions that affect people's lives — hiring, lending, healthcare, criminal justice. When these systems are biased, opaque, or misused, the consequences are severe: discrimination, legal liability, reputational damage, and erosion of public trust.</p>
+    <div class="stat-row">
+      <div class="stat-pill">⚠️ 78% of AI projects fail to deliver expected value</div>
+      <div class="stat-pill">📉 Companies lose avg. 20% of market cap after major AI failures</div>
+      <div class="stat-pill">⚖️ EU AI Act fines up to €35M or 7% of global revenue</div>
+    </div>
+    <div class="highlight-box red">
+      <strong>Bottom Line:</strong> AI ethics is not a PR exercise or a compliance checkbox. Unethical AI causes real harm to real people — and exposes your organization to legal, financial, and reputational risk. It must be embedded into every AI project from day one.
+    </div>
+  </div>
+
+  <!-- 5b: Ethical Theories -->
+  <div id="s5-theories"></div>
+  <div class="card">
+    <h3><i class="fa-solid fa-book" style="color:var(--primary)"></i> Ethical Frameworks for AI <span class="badge">5b</span></h3>
+    <p>Different philosophical traditions offer distinct lenses for evaluating AI decisions. A robust ethical framework draws from all of them.</p>
+    <table class="styled-table">
+      <thead>
+        <tr><th>Theory</th><th>Core Principle</th><th>Applied to AI</th><th>Limitation</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Utilitarianism</strong> <span class="tag tag-blue">Consequentialist</span></td>
+          <td>Greatest good for the greatest number</td>
+          <td>Optimize AI for overall societal benefit; accept small harms if aggregate benefit is large</td>
+          <td>Can justify harming minorities for majority benefit</td>
+        </tr>
+        <tr>
+          <td><strong>Deontology</strong> <span class="tag tag-purple">Rules-Based</span></td>
+          <td>Actions are inherently right or wrong regardless of outcomes (Kant)</td>
+          <td>Some AI uses are intrinsically wrong (e.g., mass surveillance), regardless of benefit</td>
+          <td>Can be inflexible; rules may conflict</td>
+        </tr>
+        <tr>
+          <td><strong>Virtue Ethics</strong> <span class="tag tag-green">Character-Based</span></td>
+          <td>What would a person of good character do? (Aristotle)</td>
+          <td>Build AI teams with strong ethical character; ask "what would a fair, honest person do?"</td>
+          <td>Harder to operationalize at scale</td>
+        </tr>
+        <tr>
+          <td><strong>Contractualism</strong> <span class="tag tag-amber">Social Contract</span></td>
+          <td>Rules that all rational people would agree to (Rawls)</td>
+          <td>Design AI as if you don't know which group you'll be in — ensures fairness across groups</td>
+          <td>Assumes rational actors and consensus</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="highlight-box cyan" style="margin-top:1rem">
+      <strong>Rawls' "Veil of Ignorance" Test:</strong> When designing an AI system, imagine you don't know which group you'll belong to — whether you'll be the one the algorithm approves or rejects, hires or doesn't hire. Would the system still seem fair? This simple thought experiment surfaces many biases.
+    </div>
+  </div>
+
+  <!-- 5c: Real-World Failures -->
+  <div id="s5-failures"></div>
+  <div class="card">
+    <h3><i class="fa-solid fa-circle-xmark" style="color:var(--red)"></i> Real-World AI Ethics Failures <span class="badge">5c</span></h3>
+    <div style="display:grid;gap:1rem">
+      <div class="callout">
+        <span class="callout-icon">⚖️</span>
+        <div class="callout-content">
+          <h5>COMPAS Recidivism Algorithm (2016)</h5>
+          <p>Used by US courts to predict likelihood of reoffending, COMPAS was found to be twice as likely to falsely flag Black defendants as high-risk compared to white defendants (ProPublica investigation). Judges used these scores in sentencing decisions — algorithmic bias directly affecting prison sentences.</p>
+        </div>
+      </div>
+      <div class="callout">
+        <span class="callout-icon">👩‍💼</span>
+        <div class="callout-content">
+          <h5>Amazon Hiring Algorithm (2018)</h5>
+          <p>Amazon built an ML tool to screen resumes. It learned from 10 years of hiring data — data dominated by male hires. The algorithm penalized resumes containing the word "women's" (e.g., "women's chess club") and downgraded graduates of all-women's colleges. Amazon scrapped it when discovered.</p>
+        </div>
+      </div>
+      <div class="callout">
+        <span class="callout-icon">📸</span>
+        <div class="callout-content">
+          <h5>Google Photos Misclassification (2015)</h5>
+          <p>Google Photos' image recognition tagged photos of Black users as "gorillas." The training data lacked diversity. Google's fix was to remove the "gorilla" label entirely — they still haven't reintroduced it years later.</p>
+        </div>
+      </div>
+      <div class="callout">
+        <span class="callout-icon">👤</span>
+        <div class="callout-content">
+          <h5>Facial Recognition &amp; Law Enforcement</h5>
+          <p>Multiple studies (MIT Media Lab, NIST) found facial recognition systems have significantly higher false-positive rates for darker-skinned faces — especially women. Several wrongful arrests have been attributed to faulty AI-based facial recognition matches.</p>
+        </div>
+      </div>
+      <div class="callout">
+        <span class="callout-icon">🏦</span>
+        <div class="callout-content">
+          <h5>Apple Card Gender Discrimination (2019)</h5>
+          <p>Married couples reported Apple Card's algorithm offering husbands 10–20x higher credit limits than wives — even when wives had better credit scores. Apple and Goldman Sachs faced regulatory investigations for potential algorithmic discrimination under equal credit laws.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5d: Governance Frameworks -->
+  <div id="s5-frameworks"></div>
+  <div class="card">
+    <h3><i class="fa-solid fa-landmark" style="color:var(--primary)"></i> Key AI Governance Frameworks <span class="badge">5d</span></h3>
+
+    <div style="display:grid;gap:1rem">
+      <div style="border:2px solid #4f46e5;border-radius:12px;padding:1.25rem">
+        <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.85rem">
+          <div style="background:#4f46e5;color:#fff;border-radius:8px;padding:.4rem .8rem;font-size:.85rem;font-weight:700">🇺🇸 NIST AI RMF</div>
+          <span style="font-size:.88rem;color:var(--muted)">AI Risk Management Framework (2023)</span>
+        </div>
+        <p style="font-size:.88rem;color:#475569;margin-bottom:.75rem">Provides a voluntary framework for managing AI risks throughout the AI lifecycle. Organized around four core functions:</p>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem">
+          <div style="background:#eef2ff;border-radius:8px;padding:.85rem;text-align:center">
+            <div style="font-weight:800;color:#4f46e5;font-size:1.1rem">GOVERN</div>
+            <div style="font-size:.78rem;color:#475569;margin-top:.3rem">Culture, accountability, and risk policies across the organization</div>
+          </div>
+          <div style="background:#ede9fe;border-radius:8px;padding:.85rem;text-align:center">
+            <div style="font-weight:800;color:#7c3aed;font-size:1.1rem">MAP</div>
+            <div style="font-size:.78rem;color:#475569;margin-top:.3rem">Identify context, stakeholders, and potential risks</div>
+          </div>
+          <div style="background:#dbeafe;border-radius:8px;padding:.85rem;text-align:center">
+            <div style="font-weight:800;color:#1d4ed8;font-size:1.1rem">MEASURE</div>
+            <div style="font-size:.78rem;color:#475569;margin-top:.3rem">Analyze, assess, and quantify identified risks</div>
+          </div>
+          <div style="background:#d1fae5;border-radius:8px;padding:.85rem;text-align:center">
+            <div style="font-weight:800;color:#065f46;font-size:1.1rem">MANAGE</div>
+            <div style="font-size:.78rem;color:#475569;margin-top:.3rem">Treat, monitor, and respond to AI risks</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="border:2px solid #2563eb;border-radius:12px;padding:1.25rem">
+        <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.85rem">
+          <div style="background:#2563eb;color:#fff;border-radius:8px;padding:.4rem .8rem;font-size:.85rem;font-weight:700">🇪🇺 EU AI Act</div>
+          <span style="font-size:.88rem;color:var(--muted)">First comprehensive AI law globally (2024)</span>
+        </div>
+        <p style="font-size:.88rem;color:#475569;margin-bottom:.75rem">Risk-based tiered regulation — the higher the risk, the stricter the requirements:</p>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem">
+          <div style="background:#fef2f2;border-radius:8px;padding:.85rem;text-align:center;border-top:4px solid #ef4444">
+            <div style="font-weight:700;color:#ef4444;font-size:.88rem">UNACCEPTABLE RISK</div>
+            <div style="font-size:.75rem;color:#475569;margin-top:.3rem">Banned: social scoring, real-time biometric surveillance in public</div>
+          </div>
+          <div style="background:#fff7ed;border-radius:8px;padding:.85rem;text-align:center;border-top:4px solid #f97316">
+            <div style="font-weight:700;color:#ea580c;font-size:.88rem">HIGH RISK</div>
+            <div style="font-size:.75rem;color:#475569;margin-top:.3rem">Strict requirements: hiring AI, credit scoring, medical devices, critical infrastructure</div>
+          </div>
+          <div style="background:#fefce8;border-radius:8px;padding:.85rem;text-align:center;border-top:4px solid #eab308">
+            <div style="font-weight:700;color:#ca8a04;font-size:.88rem">LIMITED RISK</div>
+            <div style="font-size:.75rem;color:#475569;margin-top:.3rem">Transparency obligations: chatbots must disclose they are AI</div>
+          </div>
+          <div style="background:#f0fdf4;border-radius:8px;padding:.85rem;text-align:center;border-top:4px solid #22c55e">
+            <div style="font-weight:700;color:#16a34a;font-size:.88rem">MINIMAL RISK</div>
+            <div style="font-size:.75rem;color:#475569;margin-top:.3rem">Largely unregulated: spam filters, AI-powered video games</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="border:2px solid #059669;border-radius:12px;padding:1.25rem">
+        <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.75rem">
+          <div style="background:#059669;color:#fff;border-radius:8px;padding:.4rem .8rem;font-size:.85rem;font-weight:700">🌐 OECD AI Principles</div>
+          <span style="font-size:.88rem;color:var(--muted)">International standards for trustworthy AI</span>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:.5rem">
+          <span class="tag tag-green">Inclusive Growth &amp; Sustainable Development</span>
+          <span class="tag tag-green">Human-Centered Values &amp; Fairness</span>
+          <span class="tag tag-green">Transparency &amp; Explainability</span>
+          <span class="tag tag-green">Robustness, Security &amp; Safety</span>
+          <span class="tag tag-green">Accountability</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5e: Building Ethical Policy -->
+  <div id="s5-policy"></div>
+  <div class="card">
+    <h3><i class="fa-solid fa-shield-halved" style="color:var(--primary)"></i> Building an Organizational AI Ethics Policy <span class="badge">5e</span></h3>
+    <p>An effective AI ethics policy is not a static document — it's a living framework embedded in processes, roles, and culture. The seven pillars of responsible AI:</p>
+
+    <!-- SVG: Ethics Pillars -->
+    <div class="diagram-wrap">
+      <svg viewBox="0 0 640 180" width="640" height="180" xmlns="http://www.w3.org/2000/svg">
+        <!-- Ground -->
+        <rect x="20" y="155" width="600" height="15" rx="4" fill="#1e293b"/>
+        <!-- Pillars and labels -->
+        <!-- Fairness -->
+        <rect x="30" y="55" width="72" height="100" rx="6" fill="#4f46e5"/>
+        <text x="66" y="32" text-anchor="middle" font-size="9" font-weight="700" fill="#4f46e5" font-family="Inter,sans-serif">FAIRNESS</text>
+        <text x="66" y="44" text-anchor="middle" font-size="8" fill="#6366f1" font-family="Inter,sans-serif">Equitable outcomes</text>
+        <text x="66" y="112" text-anchor="middle" font-size="18" fill="#fff" font-family="sans-serif">⚖️</text>
+        <!-- Accountability -->
+        <rect x="117" y="70" width="72" height="85" rx="6" fill="#7c3aed"/>
+        <text x="153" y="52" text-anchor="middle" font-size="9" font-weight="700" fill="#7c3aed" font-family="Inter,sans-serif">ACCOUNTAB.</text>
+        <text x="153" y="64" text-anchor="middle" font-size="8" fill="#8b5cf6" font-family="Inter,sans-serif">Clear ownership</text>
+        <text x="153" y="118" text-anchor="middle" font-size="18" fill="#fff" font-family="sans-serif">📋</text>
+        <!-- Transparency -->
+        <rect x="204" y="60" width="72" height="95" rx="6" fill="#0891b2"/>
+        <text x="240" y="42" text-anchor="middle" font-size="9" font-weight="700" fill="#0891b2" font-family="Inter,sans-serif">TRANSPAREN.</text>
+        <text x="240" y="54" text-anchor="middle" font-size="8" fill="#06b6d4" font-family="Inter,sans-serif">Explainable AI</text>
+        <text x="240" y="114" text-anchor="middle" font-size="18" fill="#fff" font-family="sans-serif">🔍</text>
+        <!-- Ethics -->
+        <rect x="291" y="45" width="72" height="110" rx="6" fill="#2563eb"/>
+        <text x="327" y="27" text-anchor="middle" font-size="9" font-weight="700" fill="#2563eb" font-family="Inter,sans-serif">ETHICS</text>
+        <text x="327" y="39" text-anchor="middle" font-size="8" fill="#3b82f6" font-family="Inter,sans-serif">Values alignment</text>
+        <text x="327" y="110" text-anchor="middle" font-size="18" fill="#fff" font-family="sans-serif">💡</text>
+        <!-- Harm Avoidance -->
+        <rect x="378" y="65" width="72" height="90" rx="6" fill="#dc2626"/>
+        <text x="414" y="47" text-anchor="middle" font-size="9" font-weight="700" fill="#dc2626" font-family="Inter,sans-serif">HARM AVOID.</text>
+        <text x="414" y="59" text-anchor="middle" font-size="8" fill="#ef4444" font-family="Inter,sans-serif">Do no harm</text>
+        <text x="414" y="116" text-anchor="middle" font-size="18" fill="#fff" font-family="sans-serif">🛡️</text>
+        <!-- Privacy -->
+        <rect x="465" y="72" width="72" height="83" rx="6" fill="#059669"/>
+        <text x="501" y="54" text-anchor="middle" font-size="9" font-weight="700" fill="#059669" font-family="Inter,sans-serif">PRIVACY</text>
+        <text x="501" y="66" text-anchor="middle" font-size="8" fill="#10b981" font-family="Inter,sans-serif">Data protection</text>
+        <text x="501" y="120" text-anchor="middle" font-size="18" fill="#fff" font-family="sans-serif">🔒</text>
+        <!-- Sustainability -->
+        <rect x="552" y="80" width="72" height="75" rx="6" fill="#92400e"/>
+        <text x="588" y="62" text-anchor="middle" font-size="9" font-weight="700" fill="#92400e" font-family="Inter,sans-serif">SUSTAINAB.</text>
+        <text x="588" y="74" text-anchor="middle" font-size="8" fill="#b45309" font-family="Inter,sans-serif">Planet-friendly</text>
+        <text x="588" y="124" text-anchor="middle" font-size="18" fill="#fff" font-family="sans-serif">🌱</text>
+      </svg>
+    </div>
+
+    <table class="styled-table">
+      <thead><tr><th>Principle</th><th>What It Means in Practice</th><th>Organizational Action</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Fairness</strong></td><td>AI systems produce equitable outcomes across demographic groups</td><td>Bias audits before deployment; diverse development teams; regular monitoring</td></tr>
+        <tr><td><strong>Accountability</strong></td><td>Clear ownership for AI decisions and outcomes</td><td>AI governance committees; named AI owners for each system; incident response plans</td></tr>
+        <tr><td><strong>Transparency</strong></td><td>Stakeholders can understand how AI makes decisions</td><td>Explainability requirements; decision logs; model cards; user disclosures</td></tr>
+        <tr><td><strong>Ethics</strong></td><td>AI reflects and upholds organizational and societal values</td><td>Ethics review boards; AI use-case approval processes; value alignment assessments</td></tr>
+        <tr><td><strong>Harm Avoidance</strong></td><td>Proactive identification and mitigation of potential harms</td><td>AI impact assessments; red-teaming; kill switches; human oversight for high-stakes</td></tr>
+        <tr><td><strong>Privacy</strong></td><td>Data used in AI respects individuals' privacy rights</td><td>Privacy-by-design; data minimization; consent frameworks; GDPR/CCPA compliance</td></tr>
+        <tr><td><strong>Sustainability</strong></td><td>AI development considers environmental impact</td><td>Model efficiency metrics; green compute choices; carbon reporting for AI workloads</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 5f: LLM Ethics -->
+  <div id="s5-llm"></div>
+  <div class="card">
+    <h3><i class="fa-solid fa-comment-dots" style="color:var(--secondary)"></i> Ethical Concerns with LLMs &amp; Generative AI <span class="badge">5f</span></h3>
+    <p>Large Language Models introduce a new class of ethical challenges that traditional AI governance frameworks weren't designed to handle.</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+      <div class="callout">
+        <span class="callout-icon">🌀</span>
+        <div class="callout-content">
+          <h5>Hallucination</h5>
+          <p>LLMs confidently generate factually incorrect information. In business contexts — legal, medical, financial — this can cause serious harm. Always verify LLM-generated facts from authoritative sources.</p>
+        </div>
+      </div>
+      <div class="callout">
+        <span class="callout-icon">📰</span>
+        <div class="callout-content">
+          <h5>Misinformation &amp; Deepfakes</h5>
+          <p>GenAI lowers the cost of producing realistic fake images, videos, and text at scale. This threatens elections, brand reputation, and public trust.</p>
+        </div>
+      </div>
+      <div class="callout">
+        <span class="callout-icon">🔒</span>
+        <div class="callout-content">
+          <h5>Privacy &amp; Data Leakage</h5>
+          <p>Employees entering sensitive corporate data into public LLMs risk exposing confidential information. LLMs may also memorize and reproduce training data containing personal information.</p>
+        </div>
+      </div>
+      <div class="callout">
+        <span class="callout-icon">⚖️</span>
+        <div class="callout-content">
+          <h5>Copyright &amp; IP Issues</h5>
+          <p>LLMs trained on copyrighted content raise unresolved legal questions. Companies using AI-generated content face potential IP infringement liability.</p>
+        </div>
+      </div>
+      <div class="callout">
+        <span class="callout-icon">📣</span>
+        <div class="callout-content">
+          <h5>Bias Amplification</h5>
+          <p>LLMs trained on internet text absorb and amplify societal biases — around gender, race, religion, and more. This can perpetuate discrimination at unprecedented scale.</p>
+        </div>
+      </div>
+      <div class="callout">
+        <span class="callout-icon">🌍</span>
+        <div class="callout-content">
+          <h5>Environmental Impact</h5>
+          <p>Training GPT-4 emitted an estimated 500+ metric tons of CO₂. A single ChatGPT conversation uses ~10x more energy than a Google search. Sustainability must be part of AI decisions.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quiz 5 -->
+  <div id="s5-quiz"></div>
+  <div id="quiz5-container"></div>
+  <div style="display:flex;justify-content:space-between;margin-top:1.5rem">
+    <button class="btn-secondary" onclick="showSection('section-4')"><i class="fa-solid fa-arrow-left"></i> Previous</button>
+    <button class="btn-primary" onclick="showSection('section-6')">Next: Organizational Readiness <i class="fa-solid fa-arrow-right"></i></button>
+  </div>
+</section>
+
+<!-- ─────────────────── SECTION 6: ORGANIZATIONAL READINESS ─────────────────── -->
+<section id="section-6" class="tutorial-section">
+  <div class="section-hero">
+    <span class="hero-icon">🏢</span>
+    <h2>Organizational Readiness</h2>
+    <p>Technology is the easy part. The hard part is transforming people, processes, and culture to become an AI-driven organization. Here's your roadmap.</p>
+  </div>
+
+  <!-- 6a: AI Maturity Models -->
+  <div id="s6-maturity"></div>
+  <div class="card">
+    <h3><i class="fa-solid fa-stairs" style="color:var(--primary)"></i> AI Maturity Models <span class="badge">6a</span></h3>
+    <p>AI maturity models help organizations honestly assess where they are on their AI journey and what it takes to advance. While different frameworks use different names, they generally describe five levels:</p>
+
+    <!-- SVG: Maturity Staircase -->
+    <div class="diagram-wrap">
+      <svg viewBox="0 0 620 230" width="620" height="230" xmlns="http://www.w3.org/2000/svg">
+        <!-- Background -->
+        <rect x="10" y="10" width="600" height="210" rx="12" fill="#f8fafc"/>
+        <!-- Step 5 - Transformational (highest) -->
+        <rect x="480" y="30" width="120" height="180" rx="0" fill="#4f46e5" opacity=".9"/>
+        <text x="540" y="90" text-anchor="middle" font-size="9" font-weight="700" fill="#fff" font-family="Inter,sans-serif">LEVEL 5</text>
+        <text x="540" y="105" text-anchor="middle" font-size="10" font-weight="800" fill="#fff" font-family="Inter,sans-serif">TRANSFORM-</text>
+        <text x="540" y="118" text-anchor="middle" font-size="10" font-weight="800" fill="#fff" font-family="Inter,sans-serif">ATIONAL</text>
+        <text x="540" y="140" text-anchor="middle" font-size="9" fill="#c7d2fe" font-family="Inter,sans-serif">AI is core to</text>
+        <text x="540" y="153" text-anchor="middle" font-size="9" fill="#c7d2fe" font-family="Inter,sans-serif">strategy &amp; DNA</text>
+        <!-- Step 4 - Systemic -->
+        <rect x="360" y="65" width="120" height="145" rx="0" fill="#7c3aed" opacity=".85"/>
+        <text x="420" y="115" text-anchor="middle" font-size="9" font-weight="700" fill="#fff" font-family="Inter,sans-serif">LEVEL 4</text>
+        <text x="420" y="130" text-anchor="middle" font-size="10" font-weight="800" fill="#fff" font-family="Inter,sans-serif">SYSTEMIC</text>
+        <text x="420" y="153" text-anchor="middle" font-size="9" fill="#ddd6fe" font-family="Inter,sans-serif">AI across all</text>
+        <text x="420" y="166" text-anchor="middle" font-size="9" fill="#ddd6fe" font-family="Inter,sans-serif">business units</text>
+        <!-- Step 3 - Operational -->
+        <rect x="240" y="100" width="120" height="110" rx="0" fill="#0891b2" opacity=".85"/>
+        <text x="300" y="142" text-anchor="middle" font-size="9" font-weight="700" fill="#fff" font-family="Inter,sans-serif">LEVEL 3</text>
+        <text x="300" y="157" text-anchor="middle" font-size="10" font-weight="800" fill="#fff" font-family="Inter,sans-serif">OPERATIONAL</text>
+        <text x="300" y="175" text-anchor="middle" font-size="9" fill="#bae6fd" font-family="Inter,sans-serif">AI in production</text>
+        <!-- Step 2 - Active -->
+        <rect x="120" y="135" width="120" height="75" rx="0" fill="#059669" opacity=".85"/>
+        <text x="180" y="168" text-anchor="middle" font-size="9" font-weight="700" fill="#fff" font-family="Inter,sans-serif">LEVEL 2</text>
+        <text x="180" y="183" text-anchor="middle" font-size="10" font-weight="800" fill="#fff" font-family="Inter,sans-serif">ACTIVE</text>
+        <text x="180" y="197" text-anchor="middle" font-size="9" fill="#a7f3d0" font-family="Inter,sans-serif">Pilots running</text>
+        <!-- Step 1 - Aware -->
+        <rect x="20" y="170" width="100" height="40" rx="0" fill="#94a3b8" opacity=".85"/>
+        <text x="70" y="190" text-anchor="middle" font-size="9" font-weight="700" fill="#fff" font-family="Inter,sans-serif">LEVEL 1: AWARE</text>
+        <text x="70" y="203" text-anchor="middle" font-size="9" fill="#e2e8f0" font-family="Inter,sans-serif">Exploring AI</text>
+        <!-- Ground -->
+        <rect x="10" y="210" width="600" height="8" rx="0" fill="#1e293b"/>
+        <!-- Arrow up left -->
+        <path d="M 22 165 L 22 145" stroke="#f59e0b" stroke-width="2" marker-end="url(#upArr)"/>
+        <defs><marker id="upArr" markerWidth="8" markerHeight="8" refX="4" refY="8" orient="auto"><path d="M0,8 L4,0 L8,8 Z" fill="#f59e0b"/></marker></defs>
+        <text x="30" y="142" font-size="9" fill="#f59e0b" font-family="Inter,sans-serif" font-weight="700">Maturity Journey →</text>
+      </svg>
+    </div>
+
+    <table class="styled-table">
+      <thead><tr><th>Level</th><th>Description</th><th>Characteristics</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><span class="tag tag-blue">Level 1: Aware</span></td>
+          <td>Exploring AI possibilities</td>
+          <td>Leadership aware of AI; few or no AI initiatives; data silos; exploring use cases</td>
+        </tr>
+        <tr>
+          <td><span class="tag tag-green">Level 2: Active</span></td>
+          <td>Running AI pilots and experiments</td>
+          <td>First AI pilots underway; small data science team; limited data governance; learning mode</td>
+        </tr>
+        <tr>
+          <td><span class="tag tag-cyan">Level 3: Operational</span></td>
+          <td>AI in production; scaling</td>
+          <td>Multiple AI systems in production; MLOps practices; growing AI literacy; governance emerging</td>
+        </tr>
+        <tr>
+          <td><span class="tag tag-purple">Level 4: Systemic</span></td>
+          <td>AI across business units</td>
+          <td>AI embedded in core processes; AI Center of Excellence; robust data platform; strong governance</td>
+        </tr>
+        <tr>
+          <td><span class="tag tag-blue">Level 5: Transformational</span></td>
+          <td>AI is core organizational DNA</td>
+          <td>AI-first strategy; continuous innovation; competitive moat from AI; industry leadership</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 6b: Becoming AI-First -->
+  <div id="s6-ai-first"></div>
+  <div class="card">
+    <h3><i class="fa-solid fa-map-signs" style="color:var(--primary)"></i> Becoming an AI-First Organization <span class="badge">6b</span></h3>
+    <p>Being "AI-first" means AI is embedded in how you think, decide, and operate — not just a tool your IT team uses. Here are the six dimensions of AI transformation:</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1rem">
+      <div style="background:#eef2ff;border-radius:12px;padding:1.25rem;border-left:4px solid var(--primary)">
+        <h5 style="font-weight:700;color:var(--primary);margin-bottom:.5rem">1. 📊 Data Foundation</h5>
+        <p style="font-size:.85rem;color:#475569;margin:0"><strong>The most critical step.</strong> You cannot have good AI without good data. Focus on: data quality and cleansing, unified data platforms (data lakes/warehouses), data governance policies, and breaking down data silos between departments.</p>
+      </div>
+      <div style="background:#ede9fe;border-radius:12px;padding:1.25rem;border-left:4px solid var(--secondary)">
+        <h5 style="font-weight:700;color:var(--secondary);margin-bottom:.5rem">2. 🛠️ Technology &amp; Infrastructure</h5>
+        <p style="font-size:.85rem;color:#475569;margin:0">Cloud-based ML platforms (AWS SageMaker, Azure ML, GCP Vertex AI), MLOps for model deployment and monitoring, API ecosystems for AI integration, and scalable compute infrastructure.</p>
+      </div>
+      <div style="background:#d1fae5;border-radius:12px;padding:1.25rem;border-left:4px solid var(--green)">
+        <h5 style="font-weight:700;color:#065f46;margin-bottom:.5rem">3. 👥 People &amp; Skills</h5>
+        <p style="font-size:.85rem;color:#475569;margin:0">Build a mix of: data scientists and ML engineers, AI-literate business stakeholders (that's you!), translators who bridge technical and business teams. Upskill existing workforce — AI skills in every role, not just tech.</p>
+      </div>
+      <div style="background:#cffafe;border-radius:12px;padding:1.25rem;border-left:4px solid var(--accent)">
+        <h5 style="font-weight:700;color:#0e7490;margin-bottom:.5rem">4. 🔄 Process Redesign</h5>
+        <p style="font-size:.85rem;color:#475569;margin:0">AI doesn't just automate old processes — it enables entirely new ways of working. Map current processes, identify AI integration points, redesign workflows around human-AI collaboration, and measure impact rigorously.</p>
+      </div>
+      <div style="background:#fef3c7;border-radius:12px;padding:1.25rem;border-left:4px solid var(--amber)">
+        <h5 style="font-weight:700;color:#92400e;margin-bottom:.5rem">5. 🧭 Culture &amp; Leadership</h5>
+        <p style="font-size:.85rem;color:#475569;margin:0">The hardest dimension. Leaders must model data-driven decision making, celebrate experimentation and learning from failure, address fear of AI-driven job displacement with transparency, and build psychological safety for change.</p>
+      </div>
+      <div style="background:#fce7f3;border-radius:12px;padding:1.25rem;border-left:4px solid #db2777">
+        <h5 style="font-weight:700;color:#9d174d;margin-bottom:.5rem">6. ⚖️ Governance &amp; Ethics</h5>
+        <p style="font-size:.85rem;color:#475569;margin:0">Establish an AI governance committee, create an AI use-case review process, implement ethics guidelines from day one, define acceptable AI use policies, and build regulatory compliance capabilities.</p>
+      </div>
+    </div>
+
+    <div class="section-divider"></div>
+    <div class="sub-section-title">The AI Center of Excellence (CoE)</div>
+    <div class="highlight-box">
+      <strong>What is an AI CoE?</strong> A cross-functional hub that centralizes AI expertise, sets standards, accelerates adoption, and ensures responsible AI practices across the entire organization. It's not an ivory tower — it's an enabler and accelerator for business units.
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.85rem;margin-top:1rem">
+      <div style="background:#f8fafc;border-radius:10px;padding:.95rem;border:1px solid var(--border);text-align:center">
+        <div style="font-size:1.5rem;margin-bottom:.4rem">🎓</div>
+        <h6 style="font-weight:700;font-size:.85rem;margin-bottom:.3rem">Enable</h6>
+        <p style="font-size:.78rem;color:var(--muted);margin:0">Train and support business teams. Lower barriers to AI adoption across functions.</p>
+      </div>
+      <div style="background:#f8fafc;border-radius:10px;padding:.95rem;border:1px solid var(--border);text-align:center">
+        <div style="font-size:1.5rem;margin-bottom:.4rem">📐</div>
+        <h6 style="font-weight:700;font-size:.85rem;margin-bottom:.3rem">Standardize</h6>
+        <p style="font-size:.78rem;color:var(--muted);margin:0">Set common platforms, tools, processes, and quality standards for AI development.</p>
+      </div>
+      <div style="background:#f8fafc;border-radius:10px;padding:.95rem;border:1px solid var(--border);text-align:center">
+        <div style="font-size:1.5rem;margin-bottom:.4rem">🛡️</div>
+        <h6 style="font-weight:700;font-size:.85rem;margin-bottom:.3rem">Govern</h6>
+        <p style="font-size:.78rem;color:var(--muted);margin:0">Review AI use cases for ethics and risk. Maintain policy and ensure compliance.</p>
+      </div>
+    </div>
+
+    <div class="section-divider"></div>
+    <div class="sub-section-title">Manager's Action Plan</div>
+    <div style="background:#f8fafc;border-radius:12px;padding:1.25rem;border:1px solid var(--border)">
+      <div style="display:grid;gap:.65rem">
+        <div style="display:flex;gap:.75rem;align-items:flex-start">
+          <div style="background:var(--primary);color:#fff;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;flex-shrink:0">1</div>
+          <p style="font-size:.88rem;color:#475569;margin:0"><strong>Assess your maturity:</strong> Honestly evaluate where your organization sits on the maturity model. Be honest — most are at Level 1–2.</p>
+        </div>
+        <div style="display:flex;gap:.75rem;align-items:flex-start">
+          <div style="background:var(--secondary);color:#fff;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;flex-shrink:0">2</div>
+          <p style="font-size:.88rem;color:#475569;margin:0"><strong>Audit your data:</strong> You can't build AI without quality data. Start a data inventory and governance initiative before any AI project.</p>
+        </div>
+        <div style="display:flex;gap:.75rem;align-items:flex-start">
+          <div style="background:var(--accent);color:#fff;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;flex-shrink:0">3</div>
+          <p style="font-size:.88rem;color:#475569;margin:0"><strong>Pick a high-value pilot:</strong> Choose a use case with clear business value, available data, and manageable risk. Prove value quickly.</p>
+        </div>
+        <div style="display:flex;gap:.75rem;align-items:flex-start">
+          <div style="background:var(--green);color:#fff;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;flex-shrink:0">4</div>
+          <p style="font-size:.88rem;color:#475569;margin:0"><strong>Build your team:</strong> Hire or develop a data scientist / ML engineer. Identify business translators who can bridge tech and business strategy.</p>
+        </div>
+        <div style="display:flex;gap:.75rem;align-items:flex-start">
+          <div style="background:var(--amber);color:#fff;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;flex-shrink:0">5</div>
+          <p style="font-size:.88rem;color:#475569;margin:0"><strong>Lead the culture change:</strong> Communicate openly, address concerns, celebrate learning, and visibly champion data-driven decision-making from the top.</p>
+        </div>
+        <div style="display:flex;gap:.75rem;align-items:flex-start">
+          <div style="background:var(--red);color:#fff;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;flex-shrink:0">6</div>
+          <p style="font-size:.88rem;color:#475569;margin:0"><strong>Establish governance early:</strong> Don't wait until you have a problem. Establish AI ethics and governance policies before you scale — it's much harder to retrofit.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quiz 6 -->
+  <div id="s6-quiz"></div>
+  <div id="quiz6-container"></div>
+
+  <!-- Completion Card -->
+  <div style="background:linear-gradient(135deg,#4f46e5,#7c3aed);border-radius:16px;padding:2.5rem;margin-top:2rem;color:#fff;text-align:center">
+    <div style="font-size:3rem;margin-bottom:1rem">🎉</div>
+    <h3 style="font-size:1.5rem;font-weight:800;margin-bottom:.75rem">Congratulations! You've Completed the Tutorial</h3>
+    <p style="opacity:.85;max-width:500px;margin:0 auto 1.5rem;line-height:1.65">You've covered the essential AI concepts every modern manager needs to know — from the foundations of ML to ethics, governance, and organizational transformation. The journey doesn't end here.</p>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+      <button class="btn-icon" style="background:rgba(255,255,255,.2);padding:.65rem 1.4rem;border-radius:10px;font-size:.9rem" onclick="showSection('section-1')">
+        <i class="fa-solid fa-rotate-right"></i> Start Over
+      </button>
+      <button class="btn-icon" style="background:rgba(255,255,255,.2);padding:.65rem 1.4rem;border-radius:10px;font-size:.9rem" onclick="toggleChat()">
+        <i class="fa-solid fa-comments"></i> Ask the AI Tutor
+      </button>
+      <button class="btn-icon" style="background:rgba(255,255,255,.2);padding:.65rem 1.4rem;border-radius:10px;font-size:.9rem" onclick="showSection('section-7')">
+        <i class="fa-solid fa-book-bookmark"></i> View References
+      </button>
+    </div>
+  </div>
+
+  <div style="display:flex;justify-content:flex-start;margin-top:1.5rem">
+    <button class="btn-secondary" onclick="showSection('section-5')"><i class="fa-solid fa-arrow-left"></i> Previous</button>
+  </div>
+</section>
+
+<!-- ─────────────────── SECTION 7: REFERENCES ─────────────────── -->
+<section id="section-7" class="tutorial-section">
+  <div class="section-hero">
+    <span class="hero-icon">📚</span>
+    <h2>References &amp; Acknowledgments</h2>
+    <p>This tutorial draws on foundational academic works, landmark research papers, authoritative governance frameworks, and award-winning investigative journalism. All sources are freely cited for educational purposes.</p>
+  </div>
+
+  <!-- Textbooks -->
+  <div id="ref-books"></div>
+  <div class="card">
+    <h3><i class="fa-solid fa-book" style="color:var(--primary)"></i> Foundational Textbooks</h3>
+    <div style="display:grid;gap:.85rem">
+
+      <div class="callout">
+        <span class="callout-icon">📗</span>
+        <div class="callout-content">
+          <h5>Artificial Intelligence: A Modern Approach (4th ed.)</h5>
+          <p>Russell, S., &amp; Norvig, P. (2020). Pearson. — The definitive AI textbook. Covers all major AI paradigms from search and logic to machine learning, perception, and natural language processing. Used in hundreds of university AI courses worldwide.</p>
+        </div>
+      </div>
+
+      <div class="callout">
+        <span class="callout-icon">📘</span>
+        <div class="callout-content">
+          <h5>Deep Learning</h5>
+          <p>Goodfellow, I., Bengio, Y., &amp; Courville, A. (2016). MIT Press. — The comprehensive reference for deep learning theory. Freely available online at deeplearningbook.org. Covers neural networks, convolutional networks, RNNs, and generative models.</p>
+        </div>
+      </div>
+
+      <div class="callout">
+        <span class="callout-icon">📙</span>
+        <div class="callout-content">
+          <h5>Machine Learning</h5>
+          <p>Mitchell, T. M. (1997). McGraw-Hill. — The classic introduction to ML. Mitchell's definition of machine learning ("A computer program is said to learn from experience E...") remains the standard definition in the field.</p>
+        </div>
+      </div>
+
+      <div class="callout">
+        <span class="callout-icon">📕</span>
+        <div class="callout-content">
+          <h5>Reinforcement Learning: An Introduction (2nd ed.)</h5>
+          <p>Sutton, R. S., &amp; Barto, A. G. (2018). MIT Press. — The authoritative textbook on reinforcement learning. Covers Markov decision processes, Q-learning, policy gradient methods, and deep RL. Freely available at incompleteideas.net.</p>
+        </div>
+      </div>
+
+      <div class="callout">
+        <span class="callout-icon">📒</span>
+        <div class="callout-content">
+          <h5>The Alignment Problem</h5>
+          <p>Christian, B. (2020). W. W. Norton &amp; Company. — A compelling, non-technical narrative about the challenge of aligning AI systems with human values. Essential reading for managers concerned about AI ethics and governance.</p>
+        </div>
+      </div>
+
+      <div class="callout">
+        <span class="callout-icon">📓</span>
+        <div class="callout-content">
+          <h5>Weapons of Math Destruction</h5>
+          <p>O'Neil, C. (2016). Crown. — Investigates how mathematical models and algorithms, when deployed without accountability, can reinforce inequality in hiring, lending, education, and criminal justice. Highly accessible for non-technical readers.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Research Papers -->
+  <div id="ref-papers"></div>
+  <div class="card">
+    <h3><i class="fa-solid fa-scroll" style="color:var(--secondary)"></i> Landmark Research Papers</h3>
+    <table class="styled-table">
+      <thead>
+        <tr><th>Year</th><th>Paper</th><th>Authors</th><th>Significance</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1950</td>
+          <td><em>Computing Machinery and Intelligence</em></td>
+          <td>Alan Turing</td>
+          <td>Proposed the "Turing Test"; foundational to the field of AI. Published in <em>Mind</em>.</td>
+        </tr>
+        <tr>
+          <td>1998</td>
+          <td><em>Gradient-Based Learning Applied to Document Recognition</em></td>
+          <td>LeCun, Bottou, Bengio, Haffner</td>
+          <td>Introduced convolutional neural networks (CNNs) for image recognition — foundation of modern computer vision.</td>
+        </tr>
+        <tr>
+          <td>2012</td>
+          <td><em>ImageNet Classification with Deep CNNs (AlexNet)</em></td>
+          <td>Krizhevsky, Sutskever, Hinton</td>
+          <td>Launched the deep learning revolution — won ImageNet with a huge margin and changed AI forever.</td>
+        </tr>
+        <tr>
+          <td>2013</td>
+          <td><em>Playing Atari with Deep Reinforcement Learning</em></td>
+          <td>Mnih et al. (DeepMind)</td>
+          <td>First demonstration of deep RL mastering complex tasks (Atari games) from raw pixels alone.</td>
+        </tr>
+        <tr>
+          <td>2014</td>
+          <td><em>Generative Adversarial Networks</em></td>
+          <td>Goodfellow et al.</td>
+          <td>Introduced GANs — the first approach capable of generating photorealistic synthetic images.</td>
+        </tr>
+        <tr>
+          <td>2016</td>
+          <td><em>Mastering the game of Go with deep neural networks</em></td>
+          <td>Silver et al. (DeepMind)</td>
+          <td>AlphaGo defeats world champion Lee Sedol. Published in <em>Nature</em>.</td>
+        </tr>
+        <tr>
+          <td>2017</td>
+          <td><em>Attention Is All You Need</em></td>
+          <td>Vaswani et al. (Google)</td>
+          <td>Introduced the Transformer architecture — the foundation for GPT, BERT, Claude, Gemini, and all modern LLMs.</td>
+        </tr>
+        <tr>
+          <td>2018</td>
+          <td><em>Gender Shades: Intersectional Accuracy Disparities in Commercial Gender Classification</em></td>
+          <td>Buolamwini &amp; Gebru (MIT Media Lab)</td>
+          <td>Documented significant racial and gender bias in commercial facial recognition systems from IBM, Microsoft, and Face++.</td>
+        </tr>
+        <tr>
+          <td>2020</td>
+          <td><em>Language Models are Few-Shot Learners (GPT-3)</em></td>
+          <td>Brown et al. (OpenAI)</td>
+          <td>Demonstrated that very large language models can perform diverse tasks with minimal examples — launching the era of foundation models.</td>
+        </tr>
+        <tr>
+          <td>2021</td>
+          <td><em>Highly accurate protein structure prediction with AlphaFold</em></td>
+          <td>Jumper et al. (DeepMind)</td>
+          <td>Solved the 50-year protein folding problem with near-experimental accuracy — transforming biology and drug discovery.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Frameworks & Reports -->
+  <div id="ref-frameworks"></div>
+  <div class="card">
+    <h3><i class="fa-solid fa-landmark" style="color:var(--green)"></i> Governance Frameworks &amp; Industry Reports</h3>
+    <div style="display:grid;gap:.85rem">
+
+      <div class="callout">
+        <span class="callout-icon">🇺🇸</span>
+        <div class="callout-content">
+          <h5>NIST AI Risk Management Framework (AI RMF 1.0)</h5>
+          <p>National Institute of Standards and Technology. (2023). <em>Artificial Intelligence Risk Management Framework</em>. U.S. Department of Commerce. Available: nist.gov/system/files/documents/2023/01/26/NIST.AI.100-1.pdf — The U.S. voluntary framework for managing AI risk across four functions: Govern, Map, Measure, Manage.</p>
+        </div>
+      </div>
+
+      <div class="callout">
+        <span class="callout-icon">🇪🇺</span>
+        <div class="callout-content">
+          <h5>EU Artificial Intelligence Act</h5>
+          <p>European Parliament. (2024). <em>Regulation on Artificial Intelligence (AI Act)</em>. Official Journal of the European Union. — The world's first comprehensive legal framework for AI, using a risk-based tiered approach from unacceptable risk (banned) to minimal risk (largely unregulated).</p>
+        </div>
+      </div>
+
+      <div class="callout">
+        <span class="callout-icon">🌐</span>
+        <div class="callout-content">
+          <h5>OECD Principles on Artificial Intelligence</h5>
+          <p>OECD. (2019, updated 2024). <em>Recommendation of the Council on Artificial Intelligence</em>. OECD/LEGAL/0449. Available: oecd.ai/en/ai-principles — Five principles for responsible AI stewardship adopted by 46 countries covering inclusive growth, human-centered values, transparency, robustness, and accountability.</p>
+        </div>
+      </div>
+
+      <div class="callout">
+        <span class="callout-icon">📊</span>
+        <div class="callout-content">
+          <h5>McKinsey Global Institute: The Age of AI</h5>
+          <p>McKinsey &amp; Company. (2023). <em>The Economic Potential of Generative AI: The Next Productivity Frontier</em>. McKinsey Global Institute. — Estimates generative AI could add $2.6–4.4 trillion annually to the global economy. Provides industry-by-industry analysis of AI transformation potential.</p>
+        </div>
+      </div>
+
+      <div class="callout">
+        <span class="callout-icon">🔮</span>
+        <div class="callout-content">
+          <h5>Gartner AI Maturity Model</h5>
+          <p>Gartner. (2020). <em>Artificial Intelligence Maturity Model</em>. Gartner Research. — The industry-standard framework for assessing organizational AI maturity across five stages, referenced extensively in Section 6 of this tutorial.</p>
+        </div>
+      </div>
+
+      <div class="callout">
+        <span class="callout-icon">🌱</span>
+        <div class="callout-content">
+          <h5>Stanford AI Index Report</h5>
+          <p>Maslej, N., et al. (2024). <em>Artificial Intelligence Index Report 2024</em>. Stanford University Human-Centered AI Institute (HAI). Available: aiindex.stanford.edu — Comprehensive annual report tracking AI research, technical progress, ethics, policy, and economic impact worldwide.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Journalism & Case Studies -->
+  <div id="ref-journalism"></div>
+  <div class="card">
+    <h3><i class="fa-solid fa-newspaper" style="color:var(--amber)"></i> Journalism, Case Studies &amp; Policy Documents</h3>
+    <div style="display:grid;gap:.85rem">
+
+      <div class="callout">
+        <span class="callout-icon">⚖️</span>
+        <div class="callout-content">
+          <h5>Machine Bias (COMPAS)</h5>
+          <p>Angwin, J., Larson, J., Mattu, S., &amp; Kirchner, L. (2016, May 23). <em>Machine Bias: There's software used across the country to predict future criminals. And it's biased against blacks.</em> ProPublica. — The landmark investigation into racial bias in the COMPAS recidivism algorithm, referenced in Section 5.</p>
+        </div>
+      </div>
+
+      <div class="callout">
+        <span class="callout-icon">👩‍💼</span>
+        <div class="callout-content">
+          <h5>Amazon Scraps Secret AI Recruiting Tool</h5>
+          <p>Dastin, J. (2018, October 9). <em>Amazon scraps secret AI recruiting tool that showed bias against women.</em> Reuters. — The Reuters investigation revealing Amazon's ML hiring tool penalized women's colleges and female-associated keywords in resumes.</p>
+        </div>
+      </div>
+
+      <div class="callout">
+        <span class="callout-icon">🤖</span>
+        <div class="callout-content">
+          <h5>DeepMind AlphaGo — Nature Paper &amp; Documentary</h5>
+          <p>Silver, D., et al. (2016). <em>Mastering the game of Go with deep neural networks and tree search.</em> Nature, 529, 484–489. Also: Kohs, G. (Dir.). (2017). <em>AlphaGo</em> [Documentary]. DeepMind. — The scientific paper and documentary film documenting AlphaGo's historic defeat of world champion Lee Sedol.</p>
+        </div>
+      </div>
+
+      <div class="callout">
+        <span class="callout-icon">🌡️</span>
+        <div class="callout-content">
+          <h5>Energy and Policy Considerations for Deep Learning in NLP</h5>
+          <p>Strubell, E., Ganesh, A., &amp; McCallum, A. (2019). <em>Energy and Policy Considerations for Deep Learning in NLP.</em> ACL 2019. — First major study quantifying the carbon footprint of training large NLP models, referenced in the LLM environmental impact discussion in Section 5.</p>
+        </div>
+      </div>
+
+      <div class="callout">
+        <span class="callout-icon">💳</span>
+        <div class="callout-content">
+          <h5>Apple Card Investigated for Gender Discrimination</h5>
+          <p>Vigdor, N. (2019, November 10). <em>Apple Card Investigated After Gender Discrimination Complaints.</em> The New York Times. — Report on New York State's investigation into allegations that Goldman Sachs' Apple Card algorithm assigned lower credit limits to women than men with similar or better credit profiles.</p>
+        </div>
+      </div>
+
+      <div class="callout">
+        <span class="callout-icon">🧬</span>
+        <div class="callout-content">
+          <h5>AlphaFold and the Protein Folding Revolution</h5>
+          <p>Jumper, J., et al. (2021). <em>Highly accurate protein structure prediction with AlphaFold.</em> Nature, 596, 583–589. — The landmark paper that solved one of biology's greatest challenges with deep learning, highlighting AI's transformative potential in scientific discovery.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Attribution -->
+  <div class="card" style="background:linear-gradient(135deg,#f8fafc,#eef2ff);border:2px solid #c7d2fe">
+    <h3><i class="fa-solid fa-circle-info" style="color:var(--primary)"></i> About This Tutorial</h3>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem">
+      <div>
+        <p><strong>Creator:</strong> <span style="color:var(--primary);font-weight:700">Sridhar Nerur</span></p>
+        <p style="font-size:.88rem;color:#475569">This tutorial was designed and created by Sridhar Nerur as an interactive educational resource for managers and business leaders navigating the AI transformation era.</p>
+        <p style="font-size:.88rem;color:#475569">The content synthesizes decades of AI research, governance frameworks, and real-world case studies into an accessible, practical format for non-technical professionals.</p>
+      </div>
+      <div>
+        <p><strong>Built with:</strong> <span style="color:var(--secondary);font-weight:700">Claude (Anthropic)</span></p>
+        <p style="font-size:.88rem;color:#475569">The application was developed using Claude, Anthropic's AI assistant, which aided in structuring content, writing explanations, generating SVG illustrations, and building the interactive web application.</p>
+        <div style="margin-top:.75rem;display:flex;flex-wrap:wrap;gap:.4rem">
+          <span class="tag tag-blue">Python / Flask</span>
+          <span class="tag tag-purple">Vanilla JavaScript</span>
+          <span class="tag tag-green">OpenAI API</span>
+          <span class="tag tag-cyan">Groq API</span>
+          <span class="tag tag-amber">SVG Illustrations</span>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid #c7d2fe;font-size:.82rem;color:var(--muted);text-align:center">
+      This tutorial is intended for educational purposes. Content accuracy is maintained but should not substitute for professional advice. All trademarks belong to their respective owners.
+    </div>
+  </div>
+
+  <div style="display:flex;justify-content:flex-start;margin-top:1.5rem">
+    <button class="btn-secondary" onclick="showSection('section-6')"><i class="fa-solid fa-arrow-left"></i> Back to Organizational Readiness</button>
+  </div>
+</section>
+
+</main><!-- end #main -->
+
+<!-- ═══════════════════════════════ CHAT WIDGET ═══════════════════════════ -->
+<div id="chat-widget">
+  <div id="chat-panel">
+    <div class="chat-header">
+      <div class="chat-avatar">🤖</div>
+      <div>
+        <h4>AI Tutor</h4>
+        <p id="chat-context-label">Topic: Introduction to AI</p>
+      </div>
+      <button id="chat-close-btn" onclick="closeChat()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div id="chat-messages"></div>
+    <div class="chat-input-row">
+      <textarea id="chat-input" placeholder="Ask anything about AI…" rows="1"></textarea>
+      <button id="chat-send-btn" onclick="sendChat()"><i class="fa-solid fa-paper-plane"></i></button>
+    </div>
+  </div>
+  <button id="chat-toggle" onclick="toggleChat()" title="Ask AI Tutor">
+    <i class="fa-solid fa-comments"></i>
+  </button>
+</div>
+
+<!-- ═══════════════════════════════ SETTINGS MODAL ════════════════════════ -->
+<div id="settings-modal" class="modal-overlay">
+  <div class="modal-box" style="width:520px">
+    <h3><i class="fa-solid fa-gear" style="color:var(--primary);margin-right:.4rem"></i>AI Tutor — Access Settings</h3>
+    <p class="sub">Choose how you want to connect the AI tutor. All options are private and handled by this server.</p>
+
+    <!-- Tabs -->
+    <div style="display:flex;gap:.4rem;margin-bottom:1.25rem;border-bottom:2px solid var(--border);padding-bottom:0">
+      <button id="tab-demo"  class="settings-tab" onclick="switchTab('demo')"  style="display:none">
+        <i class="fa-solid fa-gift"></i> Free Demo
+      </button>
+      <button id="tab-openai" class="settings-tab tab-active" onclick="switchTab('openai')">
+        <i class="fa-solid fa-robot"></i> OpenAI
+      </button>
+      <button id="tab-groq" class="settings-tab" onclick="switchTab('groq')">
+        <i class="fa-solid fa-bolt"></i> Groq (Free)
+      </button>
+    </div>
+
+    <!-- Pane: Demo -->
+    <div id="pane-demo" style="display:none">
+      <div style="background:#f0fdf4;border:1px solid #86efac;border-radius:10px;padding:1.1rem;margin-bottom:1rem">
+        <div style="font-weight:700;color:#166534;margin-bottom:.35rem"><i class="fa-solid fa-circle-check"></i> Demo mode is available on this server</div>
+        <p style="font-size:.85rem;color:#166534;margin:0">No API key required! The server administrator has configured a shared key. You can start asking questions immediately. This mode uses <strong>gpt-4o-mini</strong> or <strong>Llama 3</strong>.</p>
+      </div>
+      <p style="font-size:.82rem;color:var(--muted)">Demo mode is provided for educational use. For unlimited, private access enter your own key in the OpenAI or Groq tabs.</p>
+    </div>
+
+    <!-- Pane: OpenAI -->
+    <div id="pane-openai">
+      <div style="display:flex;gap:.5rem;margin-bottom:1rem">
+        <div style="flex:1;background:#eef2ff;border-radius:9px;padding:.9rem;border:2px solid transparent;cursor:pointer" id="tier-free" onclick="selectTier('free')">
+          <div style="font-weight:700;font-size:.88rem;color:var(--primary)"><i class="fa-solid fa-star"></i> Free Tier</div>
+          <div style="font-size:.78rem;color:#6366f1;margin-top:.2rem">gpt-4o-mini · New accounts get free credits</div>
+        </div>
+        <div style="flex:1;background:#f8fafc;border-radius:9px;padding:.9rem;border:2px solid transparent;cursor:pointer" id="tier-paid" onclick="selectTier('paid')">
+          <div style="font-weight:700;font-size:.88rem;color:var(--secondary)"><i class="fa-solid fa-gem"></i> Paid</div>
+          <div style="font-size:.78rem;color:#8b5cf6;margin-top:.2rem">gpt-4o · Full capability</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="settings-key"><i class="fa-solid fa-key"></i> OpenAI API Key</label>
+        <input type="password" id="settings-key" placeholder="sk-proj-..." autocomplete="off"/>
+        <div class="form-hint">Stored in your browser session only — never logged or shared. Get a key at <strong>platform.openai.com</strong> → API keys. New accounts receive free credits.</div>
+      </div>
+      <div class="form-group">
+        <label for="settings-model"><i class="fa-solid fa-microchip"></i> Model</label>
+        <select id="settings-model">
+          <option value="gpt-4o-mini">gpt-4o-mini — Free tier &amp; budget-friendly (recommended)</option>
+          <option value="gpt-4o">gpt-4o — Paid, most capable</option>
+          <option value="gpt-4-turbo">gpt-4-turbo — Paid, high performance</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Pane: Groq -->
+    <div id="pane-groq" style="display:none">
+      <div style="background:#ecfeff;border:1px solid #67e8f9;border-radius:10px;padding:1rem;margin-bottom:1rem">
+        <div style="font-weight:700;color:#164e63;margin-bottom:.3rem"><i class="fa-solid fa-bolt"></i> Groq — Completely Free Tier</div>
+        <p style="font-size:.83rem;color:#164e63;margin:0">Groq offers a generous free tier with <strong>no credit card required</strong>. Sign up for free at <strong>console.groq.com</strong>, create an API key, and paste it below. Uses Llama 3 (8B) with extremely fast inference.</p>
+      </div>
+      <div class="form-group">
+        <label for="settings-groq-key"><i class="fa-solid fa-key"></i> Groq API Key</label>
+        <input type="password" id="settings-groq-key" placeholder="gsk_..." autocomplete="off"/>
+        <div class="form-hint">Free to obtain at <strong>console.groq.com</strong> — no payment information needed. Stored in your browser session only.</div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn-secondary" onclick="closeSettings()">Cancel</button>
+      <button class="btn-primary" onclick="saveSettings()"><i class="fa-solid fa-floppy-disk"></i> Save &amp; Connect</button>
+    </div>
+  </div>
+</div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>
