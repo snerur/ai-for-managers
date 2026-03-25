@@ -473,13 +473,16 @@ async function sendChat() {
   const msg = input.value.trim();
   if (!msg) return;
 
-  const mode  = sessionStorage.getItem('ai_mode')  || 'openai';
-  const apiKey = sessionStorage.getItem('ai_key')  || '';
-  const model = sessionStorage.getItem('ai_model') || 'gpt-4o-mini';
+  const mode  = STORE.mode();
+  const model = STORE.model();
+  // Prefer the shared slot; fall back to provider-specific key if shared slot is empty
+  let apiKey = sessionStorage.getItem('ai_key') || '';
+  if (!apiKey && mode === 'openai') apiKey = STORE.openaiKey();
+  if (!apiKey && mode === 'groq')   apiKey = STORE.groqKey();
 
   if (mode !== 'demo' && !apiKey) {
-    appendMessage('error', '⚠ No API key set. Please open ⚙ Settings to configure access.');
-    openSettings();
+    appendMessage('error', '⚠ No API key configured. Opening Settings…');
+    setTimeout(openSettings, 300);
     return;
   }
 
@@ -532,32 +535,50 @@ async function sendChat() {
 
 // ── Settings ────────────────────────────────────────────────
 
+// Each provider has its own storage key so they never overwrite each other.
+const STORE = {
+  mode:      () => sessionStorage.getItem('ai_mode')      || 'openai',
+  openaiKey: () => sessionStorage.getItem('openai_key')   || '',
+  groqKey:   () => sessionStorage.getItem('groq_key')     || '',
+  model:     () => sessionStorage.getItem('ai_model')     || 'gpt-4o-mini',
+};
+
 function openSettings() {
   document.getElementById('settings-modal').classList.add('open');
-  // Restore saved values
-  const mode  = sessionStorage.getItem('ai_mode')  || 'openai';
-  const key   = sessionStorage.getItem('ai_key')   || '';
-  const model = sessionStorage.getItem('ai_model') || 'gpt-4o-mini';
 
   // Show/hide demo tab based on server capability
   const demoTab = document.getElementById('tab-demo');
   if (demoTab) demoTab.style.display = serverDemoAvailable ? '' : 'none';
 
-  switchTab(mode === 'demo' && serverDemoAvailable ? 'demo' : mode);
-  document.getElementById('settings-key').value = key;
-  if (document.getElementById('settings-model')) {
-    document.getElementById('settings-model').value = model;
-  }
+  const savedMode = STORE.mode();
+  const activeTab = (savedMode === 'demo' && serverDemoAvailable) ? 'demo' : savedMode;
+
+  // Update UI only — do NOT write sessionStorage here (user hasn't confirmed yet)
+  _applyTabUI(activeTab);
+
+  // Restore each provider's key into its own field
+  const openaiEl = document.getElementById('settings-key');
+  const groqEl   = document.getElementById('settings-groq-key');
+  const modelEl  = document.getElementById('settings-model');
+  if (openaiEl) openaiEl.value = STORE.openaiKey();
+  if (groqEl)   groqEl.value   = STORE.groqKey();
+  if (modelEl)  modelEl.value  = STORE.model();
 }
 
+/** Called by tab buttons — updates UI *and* writes mode to sessionStorage. */
 function switchTab(tab) {
+  _applyTabUI(tab);
+  sessionStorage.setItem('ai_mode', tab);
+}
+
+/** Pure UI update — never touches sessionStorage. */
+function _applyTabUI(tab) {
   ['demo', 'openai', 'groq'].forEach(t => {
-    const btn = document.getElementById('tab-' + t);
+    const btn  = document.getElementById('tab-' + t);
     const pane = document.getElementById('pane-' + t);
     if (btn)  btn.classList.toggle('tab-active', t === tab);
     if (pane) pane.style.display = (t === tab) ? '' : 'none';
   });
-  sessionStorage.setItem('ai_mode', tab);
 }
 
 function closeSettings() {
@@ -565,35 +586,57 @@ function closeSettings() {
 }
 
 function selectTier(tier) {
-  const freeEl = document.getElementById('tier-free');
-  const paidEl = document.getElementById('tier-paid');
+  const freeEl  = document.getElementById('tier-free');
+  const paidEl  = document.getElementById('tier-paid');
   const modelEl = document.getElementById('settings-model');
-  if (freeEl) freeEl.style.borderColor = tier === 'free' ? 'var(--primary)' : 'transparent';
-  if (paidEl) paidEl.style.borderColor = tier === 'paid' ? 'var(--secondary)' : 'transparent';
+  if (freeEl)  freeEl.style.borderColor  = tier === 'free' ? 'var(--primary)'   : 'transparent';
+  if (paidEl)  paidEl.style.borderColor  = tier === 'paid' ? 'var(--secondary)' : 'transparent';
   if (modelEl) modelEl.value = tier === 'free' ? 'gpt-4o-mini' : 'gpt-4o';
 }
 
 function saveSettings() {
-  const mode = sessionStorage.getItem('ai_mode') || 'openai';
+  // Read which tab is currently active by checking the UI (not sessionStorage,
+  // because the user may have switched tabs without the save button confirming it).
+  let activeTab = 'openai';
+  ['demo', 'openai', 'groq'].forEach(t => {
+    const btn = document.getElementById('tab-' + t);
+    if (btn && btn.classList.contains('tab-active')) activeTab = t;
+  });
 
   let key = '', model = 'gpt-4o-mini';
 
-  if (mode === 'groq') {
-    key = (document.getElementById('settings-groq-key').value || '').trim();
-    model = 'llama3-8b-8192';
-  } else if (mode === 'openai') {
-    key   = (document.getElementById('settings-key').value || '').trim();
-    model = document.getElementById('settings-model')
-              ? document.getElementById('settings-model').value
-              : 'gpt-4o-mini';
-  }
-  // demo mode: no key needed
+  if (activeTab === 'groq') {
+    const entered = (document.getElementById('settings-groq-key').value || '').trim();
+    // Only overwrite the stored key if the user typed a new one
+    if (entered) sessionStorage.setItem('groq_key', entered);
+    key   = sessionStorage.getItem('groq_key') || '';
+    model = 'llama-3.1-8b-instant';
+    if (!key) {
+      alert('Please enter your Groq API key.\nGet a free key at console.groq.com (no payment needed).');
+      return;
+    }
 
+  } else if (activeTab === 'openai') {
+    const entered = (document.getElementById('settings-key').value || '').trim();
+    if (entered) sessionStorage.setItem('openai_key', entered);
+    key   = sessionStorage.getItem('openai_key') || '';
+    model = document.getElementById('settings-model')?.value || 'gpt-4o-mini';
+    if (!key) {
+      alert('Please enter your OpenAI API key.\nGet one at platform.openai.com → API keys.');
+      return;
+    }
+  }
+  // demo mode: key stays empty — server uses its own key
+
+  // Commit the chosen mode and shared key/model
+  sessionStorage.setItem('ai_mode',  activeTab);
   sessionStorage.setItem('ai_key',   key);
   sessionStorage.setItem('ai_model', model);
   closeSettings();
 
-  const modeLabel = mode === 'demo' ? 'Demo (free)' : mode === 'groq' ? `Groq · ${model}` : `OpenAI · ${model}`;
+  const modeLabel = activeTab === 'demo'  ? 'Demo (free)'
+                  : activeTab === 'groq'  ? `Groq · ${model}`
+                  : `OpenAI · ${model}`;
   appendMessage('bot', `✅ Connected! Mode: ${modeLabel}. Ask me anything about what you're learning!`);
   if (!chatOpen) toggleChat();
 }

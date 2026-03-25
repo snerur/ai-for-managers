@@ -24,8 +24,8 @@ app = Flask(__name__)
 _SERVER_OPENAI_KEY = os.getenv("OPENAI_API_KEY", "").strip()
 _SERVER_GROQ_KEY   = os.getenv("GROQ_API_KEY",   "").strip()
 
-GROQ_BASE_URL = "https://api.groq.com/openai/v1"
-GROQ_FREE_MODEL = "llama3-8b-8192"   # Groq free-tier model
+GROQ_BASE_URL   = "https://api.groq.com/openai/v1"
+GROQ_FREE_MODEL = "llama-3.1-8b-instant"   # current Groq free-tier fast model
 
 
 @app.route("/")
