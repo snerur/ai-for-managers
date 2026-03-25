@@ -186,7 +186,7 @@ This tutorial draws on the following key sources. A full bibliography is availab
 
 **Journalism & Case Studies**
 - Angwin et al. (2016). Machine Bias. *ProPublica*.
-- Dastin, J. (2018). Amazon scraps secret AI recruiting tool. *Reuters*.
+- Dastin, J. (2018). Amazon scraps secret AI recruiting tool that showed bias against women. Reuters (2018).
 
 ---
 
