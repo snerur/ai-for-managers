@@ -1,6 +1,8 @@
 # AI for Managers — Interactive Tutorial
 
-An interactive, browser-based tutorial on Artificial Intelligence designed for **non-technical managers and business leaders**. Built by **Sridhar Nerur** using **Claude** (Anthropic).
+An interactive tutorial on Artificial Intelligence designed for **non-technical managers and business leaders**. Built by **Sridhar Nerur** using **Claude** (Anthropic).
+
+The application is built with **Streamlit** — run it with a single command, no web server configuration required.
 
 ---
 
@@ -13,7 +15,7 @@ This tutorial demystifies AI through clear explanations, visual diagrams, real-w
 ## Modules
 
 | # | Module | Topics Covered |
-|---|--------|---------------|
+|---|--------|----------------|
 | 1 | **Introduction to AI** | Definitions (AI, ML, Deep Learning, GenAI), brief history from 1950 to present, opportunities and challenges across industries |
 | 2 | **Supervised Learning** | Regression vs. classification, common algorithms, real-world business applications |
 | 3 | **Unsupervised Learning** | Clustering, anomaly detection, association rules, dimensionality reduction |
@@ -25,20 +27,21 @@ This tutorial demystifies AI through clear explanations, visual diagrams, real-w
 Each module includes:
 - Inline **SVG diagrams** and visual explainers
 - **Real-world business examples**
-- A **5-question interactive quiz** with immediate feedback and explanations
+- A **5-question interactive quiz** with per-question feedback and explanations
 
 ---
 
 ## Features
 
 - **Three AI tutor access modes** — choose the option that fits your situation:
-  - **Demo mode** — no API key needed (enabled by the server owner via `.env`)
-  - **OpenAI** — use your own key; supports the free tier (`gpt-4o-mini`) and paid models (`gpt-4o`)
+  - **Demo mode** — no API key needed (enabled by setting a key in `.env`)
+  - **OpenAI** — use your own key; supports `gpt-4o-mini` (free tier) and `gpt-4o` (paid)
   - **Groq (free)** — use a free Groq API key; no payment required, powered by Llama 3.1
 - **Context-aware AI tutor** — knows which module you are studying and tailors responses accordingly
-- **Progress tracking** — sidebar shows completion status across all modules
-- **Smooth single-page navigation** with collapsible sidebar
-- **Fully responsive** — works on desktop and mobile browsers
+- **Progress tracking** — sidebar shows completion percentage and per-module checkmarks
+- **Sidebar navigation** — jump to any module or the References page instantly
+- **Inline quizzes** — one question at a time with immediate correct/incorrect feedback, explanations, and a score screen with retake option
+- **Split-view chat** — toggle the AI tutor alongside the content without leaving the page
 
 ---
 
@@ -46,7 +49,7 @@ Each module includes:
 
 - Python 3.9 or higher
 - `pip` (Python package manager)
-- An internet connection (to load fonts and icons from CDN)
+- An internet connection (to load fonts from Google Fonts CDN)
 - An API key from **OpenAI** or **Groq** to use the AI tutor (optional — see Access Modes below)
 
 ---
@@ -68,13 +71,13 @@ pip install -r requirements.txt
 
 ### 3. (Optional) Configure a server-side demo key
 
-If you want visitors to use the AI tutor without entering their own API key, copy the example environment file and add your key:
+If you want users to access the AI tutor without entering their own API key, copy the example environment file and add your key:
 
 ```bash
 cp .env.example .env
 ```
 
-Then open `.env` in a text editor and fill in one of the following:
+Then open `.env` and fill in one of the following:
 
 ```env
 # Option A — OpenAI (uses gpt-4o-mini)
@@ -86,17 +89,13 @@ GROQ_API_KEY=gsk_...
 
 If neither key is set, the AI tutor is still fully functional — users simply enter their own key in the Settings panel.
 
-### 4. Start the server
+### 4. Run the Streamlit app
 
 ```bash
-python app.py
+streamlit run streamlit_app.py
 ```
 
-### 5. Open in your browser
-
-```
-http://localhost:5000
-```
+Streamlit will automatically open the app in your default browser at `http://localhost:8501`.
 
 ---
 
@@ -115,21 +114,21 @@ http://localhost:5000
 1. Visit [console.groq.com](https://console.groq.com)
 2. Sign up for a free account (no credit card required)
 3. Go to **API Keys** → **Create API Key**
-4. Paste the key into the tutorial's Settings panel under the **Groq (Free)** tab
+4. Paste the key into the tutorial's Settings panel in the sidebar
 
 ---
 
 ## Using the AI Tutor
 
-1. Click the **⚙ Settings** button in the top-right corner of the header
+1. In the sidebar, click **⚙️ AI Tutor Settings** to expand the settings panel
 2. Choose your access mode:
-   - **Free Demo** — appears automatically if the server owner has configured a key in `.env`
-   - **OpenAI** — paste your `sk-proj-...` key; select Free Tier (`gpt-4o-mini`) or Paid (`gpt-4o`)
+   - **Free Demo** — appears automatically if a server-side key is configured in `.env`
+   - **OpenAI** — paste your `sk-...` key; select `gpt-4o-mini` (free tier) or `gpt-4o` (paid)
    - **Groq (Free)** — paste your `gsk_...` key; uses Llama 3.1 at no cost
-3. Click **Save & Connect**
-4. Click the **💬 Ask AI** button (or the chat bubble in the bottom-right corner) at any time to ask questions about the current module
+3. Click **💬 Ask AI Tutor** in the sidebar to open the chat panel alongside the current module
+4. Ask any question about the material — the tutor knows which module you are viewing and responds in plain business language
 
-> **Privacy note:** API keys are stored in your browser's `sessionStorage` only. They are never logged or stored on the server and are automatically cleared when you close the browser tab.
+> **Privacy note:** API keys are stored only in Streamlit's session state for the duration of your browser session. They are never written to disk or logged on the server.
 
 ---
 
@@ -137,15 +136,16 @@ http://localhost:5000
 
 ```
 ai-for-managers/
-├── app.py                  # Flask server — routes, OpenAI/Groq API proxy
+├── streamlit_app.py        # Streamlit application — all modules, quizzes, chat, and settings
+├── app.py                  # Original Flask version (still functional)
 ├── requirements.txt        # Python dependencies
 ├── .env.example            # Template for server-side demo key configuration
 ├── .gitignore
 ├── templates/
-│   └── index.html          # Single-page application — all 7 modules, quizzes, diagrams
+│   └── index.html          # Flask SPA — all 7 modules, quizzes, diagrams
 └── static/
-    ├── style.css           # Custom CSS — layout, components, quiz, chat, modals
-    └── app.js              # Navigation, quiz engine, chat client, settings logic
+    ├── style.css           # CSS for the Flask version
+    └── app.js              # JavaScript for the Flask version
 ```
 
 ---
@@ -153,20 +153,18 @@ ai-for-managers/
 ## Technology Stack
 
 | Layer | Technology |
-|-------|-----------|
-| Backend | Python · Flask |
+|-------|------------|
+| Framework | Python · Streamlit |
 | AI Providers | OpenAI API (`gpt-4o-mini`, `gpt-4o`) · Groq API (`llama-3.1-8b-instant`) |
-| Frontend | Vanilla JavaScript (no framework) |
-| Styling | Custom CSS with CSS variables |
-| Diagrams | Inline SVG |
-| Icons | Font Awesome 6 |
+| Diagrams | Inline SVG (rendered via `unsafe_allow_html`) |
 | Typography | Inter (Google Fonts) |
+| State Management | Streamlit `session_state` |
 
 ---
 
 ## References
 
-This tutorial draws on the following key sources. A full bibliography is available in the **References** module (Section 7) within the tutorial itself.
+A full bibliography is available in the **References** module (Section 7) within the tutorial. Key sources include:
 
 **Textbooks**
 - Russell, S., & Norvig, P. (2020). *Artificial Intelligence: A Modern Approach* (4th ed.). Pearson.
@@ -182,11 +180,12 @@ This tutorial draws on the following key sources. A full bibliography is availab
 **Landmark Research**
 - Vaswani et al. (2017). Attention Is All You Need. *NeurIPS*.
 - Silver et al. (2016). Mastering the game of Go with deep neural networks. *Nature*.
+- Linden, G., Smith, B., & York, J. (2003). Amazon.com Recommendations: Item-to-Item Collaborative Filtering. *IEEE Internet Computing*.
 - Buolamwini & Gebru (2018). Gender Shades. *FAT Conference*.
 
 **Journalism & Case Studies**
 - Angwin et al. (2016). Machine Bias. *ProPublica*.
-- Dastin, J. (2018). Amazon scraps secret AI recruiting tool that showed bias against women. Reuters (2018).
+- Dastin, J. (2018). Amazon scraps secret AI recruiting tool that showed bias against women. *Reuters*.
 
 ---
 
