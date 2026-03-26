@@ -12,10 +12,17 @@ import streamlit as st
 from openai import OpenAI
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv()  # no-op on Streamlit Cloud (no .env file), safe to keep
 
-_SERVER_OPENAI_KEY = os.getenv("OPENAI_API_KEY", "").strip()
-_SERVER_GROQ_KEY   = os.getenv("GROQ_API_KEY",   "").strip()
+def _secret(key: str) -> str:
+    """Read from st.secrets (Streamlit Cloud) with fallback to os.environ (.env / local)."""
+    try:
+        return st.secrets.get(key, "") or os.getenv(key, "")
+    except Exception:
+        return os.getenv(key, "")
+
+_SERVER_OPENAI_KEY = _secret("OPENAI_API_KEY").strip()
+_SERVER_GROQ_KEY   = _secret("GROQ_API_KEY").strip()
 GROQ_BASE_URL      = "https://api.groq.com/openai/v1"
 GROQ_FREE_MODEL    = "llama-3.1-8b-instant"
 
