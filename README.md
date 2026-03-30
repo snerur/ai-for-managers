@@ -20,9 +20,12 @@ This tutorial demystifies AI through clear explanations, visual diagrams, real-w
 | 2 | **Supervised Learning** | Regression vs. classification, common algorithms, real-world business applications |
 | 3 | **Unsupervised Learning** | Clustering, anomaly detection, association rules, dimensionality reduction |
 | 4 | **Reinforcement Learning** | Agents, environments, rewards, policies, real-world examples (AlphaGo, robotics, recommendations) |
-| 5 | **AI Ethics & Governance** | Ethical theories, real-world AI failures, NIST AI RMF, EU AI Act, OECD principles, LLM-specific concerns |
-| 6 | **Organizational Readiness** | AI maturity models, becoming an AI-first organization, the AI Center of Excellence |
-| 7 | **References** | Textbooks, landmark research papers, governance frameworks, journalism and case studies |
+| 5 | **LLMs & Generative AI** | How large language models work, transformer architecture, AI assistants vs. agents, multi-agent systems, ethical concerns |
+| 6 | **Basics of Prompting** | Zero-shot, few-shot, chain-of-thought, and role prompting; prompt engineering best practices for business users |
+| 7 | **AI Use Cases** | Industry-by-industry overview of AI applications across healthcare, finance, retail, manufacturing, and more |
+| 8 | **AI Ethics & Governance** | Ethical theories, real-world AI failures, NIST AI RMF, EU AI Act, OECD principles, LLM-specific concerns |
+| 9 | **Organizational Readiness** | AI maturity models, becoming an AI-first organization, the AI Center of Excellence |
+| 10 | **References** | Textbooks, landmark research papers, governance frameworks, journalism and case studies |
 
 Each module includes:
 - Inline **SVG diagrams** and visual explainers
@@ -142,7 +145,7 @@ ai-for-managers/
 ├── .env.example            # Template for server-side demo key configuration
 ├── .gitignore
 ├── templates/
-│   └── index.html          # Flask SPA — all 7 modules, quizzes, diagrams
+│   └── index.html          # Flask SPA — all 9 modules, quizzes, diagrams
 └── static/
     ├── style.css           # CSS for the Flask version
     └── app.js              # JavaScript for the Flask version
@@ -164,7 +167,7 @@ ai-for-managers/
 
 ## References
 
-A full bibliography is available in the **References** module (Section 7) within the tutorial. Key sources include:
+A full bibliography is available in the **References** module (Section 10) within the tutorial. Key sources include:
 
 **Textbooks**
 - Russell, S., & Norvig, P. (2020). *Artificial Intelligence: A Modern Approach* (4th ed.). Pearson.
