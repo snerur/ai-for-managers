@@ -399,7 +399,7 @@ def section2():
 <div class="section-hero">
   <span class="hero-icon">🏷️</span>
   <h2>Supervised Learning</h2>
-  <p>The most widely used form of machine learning in business. From predicting sales to detecting fraud, supervised learning powers decisions across every function.</p>
+  <p>The most widely used form of machine learning in business — also called <strong>Predictive Modelling</strong>. From predicting sales to detecting fraud, supervised learning powers decisions across every function.</p>
 </div>
 
 <div class="card">
@@ -433,7 +433,7 @@ def section2():
 
 <div class="card">
   <h3>🔀 Regression vs. Classification <span class="badge">2b</span></h3>
-  <p>Supervised learning has two major flavors, distinguished by the type of output they predict:</p>
+  <p>Supervised learning — or <strong>Predictive Modelling</strong> as it's often called in business — has two major flavors, distinguished by the type of output they predict:</p>
   <div class="compare-grid">
     <div class="compare-col left">
       <h4 style="color:#4f46e5">📈 Regression</h4>
@@ -476,7 +476,34 @@ def section2():
   <div class="example-grid">
     <div class="example-card"><span class="ex-icon">🔒</span><h5>Fraud Detection</h5><p>Banks classify each transaction as legitimate or fraudulent in milliseconds. Visa and Mastercard prevent billions in annual losses.</p></div>
     <div class="example-card"><span class="ex-icon">📧</span><h5>Email Spam Filter</h5><p>Gmail's spam filter classifies 15 billion emails daily with 99.9% accuracy — saving professionals hours per week.</p></div>
-    <div class="example-card"><span class="ex-icon">🏃</span><h5>Customer Churn</h5><p>Telecoms predict which customers will cancel service next month, enabling proactive retention offers before they leave.</p></div>
+    <div class="example-card"><span class="ex-icon">🏃</span><h5>Customer Churn</h5><p>Telecoms predict which customers will cancel service next month, enabling proactive retention offers before they leave. <strong>Note the nuance:</strong> if the output is a binary label (Churn / No Churn), it's <em>classification</em>. If the output is a probability score (e.g., 73% likelihood of churning), it's technically <em>regression</em>. In practice, many churn models produce both — first a probability score, then a decision threshold converts it to a label.</p></div>
+  </div>
+</div>
+
+<div class="card">
+  <h3>🌲 Key Algorithms &amp; Ensemble Methods <span class="badge">2d</span></h3>
+  <p>You don't need to understand the maths, but it helps to recognise the names of common supervised learning algorithms — especially <strong>ensemble methods</strong>, which combine many models to get better results than any single model alone.</p>
+  <div class="compare-grid">
+    <div class="compare-col left">
+      <h4 style="color:#4f46e5">🔧 Common Algorithms</h4>
+      <ul style="font-size:.85rem;color:#475569;padding-left:1.1rem;line-height:1.9">
+        <li><strong>Linear / Logistic Regression</strong> — simple, fast, interpretable; the go-to starting point.</li>
+        <li><strong>Decision Tree</strong> — learns a flowchart of if/then rules; easy for humans to understand.</li>
+        <li><strong>Support Vector Machine (SVM)</strong> — good for high-dimensional data such as text or images.</li>
+        <li><strong>Neural Network</strong> — loosely inspired by the brain; powers deep learning (see Module 5).</li>
+      </ul>
+    </div>
+    <div class="compare-col right">
+      <h4 style="color:#0e7490">🌳 Ensemble Methods</h4>
+      <p style="font-size:.85rem;color:#475569">An <strong>ensemble method</strong> trains multiple models and combines their predictions — like asking a panel of experts instead of just one. The "wisdom of the crowd" usually beats a single expert.</p>
+      <ul style="font-size:.85rem;color:#475569;padding-left:1.1rem;line-height:1.9">
+        <li><strong>Random Forest</strong> — builds hundreds of decision trees on random subsets of data, then takes a majority vote (classification) or average (regression). It's robust, handles missing data well, and is one of the most reliable all-purpose algorithms in practice.</li>
+        <li><strong>XGBoost / Gradient Boosting</strong> — builds trees sequentially, each correcting the mistakes of the previous one. Frequently wins data-science competitions.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="highlight-box" style="margin-top:1.1rem">
+    <strong>Manager Takeaway:</strong> When a data science team says they're using "Random Forest" or "XGBoost", they're using ensemble methods — combining many models for higher accuracy and reliability. These are the workhorses of business predictive modelling.
   </div>
 </div>
 """, unsafe_allow_html=True)
