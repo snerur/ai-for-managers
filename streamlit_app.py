@@ -402,6 +402,12 @@ def section2():
   <p>The most widely used form of machine learning in business — also called <strong>Predictive Modelling</strong>. From predicting sales to detecting fraud, supervised learning powers decisions across every function.</p>
 </div>
 
+<div class="card" style="background:#f8fafc;">
+  <h3 style="display:flex;align-items:center;gap:.5rem">📺 Video: Supervised Learning Explained</h3>
+  <p style="font-size:.9rem;color:#475569;margin-bottom:1rem">Watch this short video for a visual introduction to supervised learning concepts covered in this module.</p>
+  <a href="https://www.youtube.com/watch?v=Ps0y6w4cD_U&t=206s" target="_blank" style="display:inline-block;background:#4f46e5;color:white;padding:.55rem 1.2rem;border-radius:8px;text-decoration:none;font-weight:600;font-size:.88rem">▶ Watch on YouTube</a>
+</div>
+
 <div class="card">
   <h3>🎓 What is Supervised Learning? <span class="badge">2a</span></h3>
   <p>Supervised learning trains a model on <strong>labeled data</strong> — examples where both the input and the correct output are known. The algorithm learns to map inputs to outputs, then generalizes to new, unseen data.</p>
@@ -515,6 +521,12 @@ def section3():
   <span class="hero-icon">🔍</span>
   <h2>Unsupervised Learning</h2>
   <p>Discover hidden patterns and structure in data — no labels required. Unsupervised learning is how machines find customer segments, detect anomalies, and surface insights no human thought to look for.</p>
+</div>
+
+<div class="card" style="background:#f8fafc;">
+  <h3 style="display:flex;align-items:center;gap:.5rem">📺 Video: Supervised vs Unsupervised vs Reinforcement Learning</h3>
+  <p style="font-size:.9rem;color:#475569;margin-bottom:1rem">This video compares all three major learning paradigms — great context as you move from supervised into unsupervised learning.</p>
+  <a href="https://www.youtube.com/watch?v=585_st-5rAc" target="_blank" style="display:inline-block;background:#4f46e5;color:white;padding:.55rem 1.2rem;border-radius:8px;text-decoration:none;font-weight:600;font-size:.88rem">▶ Watch on YouTube</a>
 </div>
 
 <div class="card">
@@ -650,6 +662,12 @@ def section5():
   <p>Large Language Models have redefined what AI can do. Understand how they work, the spectrum from simple assistants to autonomous agents, and the ethical challenges that come with them.</p>
 </div>
 
+<div class="card" style="background:#f8fafc;">
+  <h3 style="display:flex;align-items:center;gap:.5rem">📺 Video: How Large Language Models Work</h3>
+  <p style="font-size:.9rem;color:#475569;margin-bottom:1rem">A clear visual explanation of how LLMs are built and why they're so powerful — perfect background for this module.</p>
+  <a href="https://www.youtube.com/watch?v=iR2O2GPbB0E" target="_blank" style="display:inline-block;background:#4f46e5;color:white;padding:.55rem 1.2rem;border-radius:8px;text-decoration:none;font-weight:600;font-size:.88rem">▶ Watch on YouTube</a>
+</div>
+
 <div class="card">
   <h3>🧠 What Are Large Language Models? <span class="badge">5a</span></h3>
   <p>Large Language Models (LLMs) are AI systems trained on massive text corpora — books, articles, code, websites — to predict the next token in a sequence. This deceptively simple objective, applied at enormous scale, gives rise to remarkable emergent abilities.</p>
@@ -752,6 +770,12 @@ def section6():
   <span class="hero-icon">✍️</span>
   <h2>Basics of Prompting</h2>
   <p>Prompting is the new programming. How you communicate with an LLM determines the quality of its output. Master these principles and your team will get dramatically better results from AI tools.</p>
+</div>
+
+<div class="card" style="background:#f8fafc;">
+  <h3 style="display:flex;align-items:center;gap:.5rem">📺 Video: Prompt Engineering Basics</h3>
+  <p style="font-size:.9rem;color:#475569;margin-bottom:1rem">Watch this introduction to prompting techniques before diving into the hands-on exercises in this module.</p>
+  <a href="https://www.youtube.com/watch?v=o3qfL2fcSx4" target="_blank" style="display:inline-block;background:#4f46e5;color:white;padding:.55rem 1.2rem;border-radius:8px;text-decoration:none;font-weight:600;font-size:.88rem">▶ Watch on YouTube</a>
 </div>
 
 <div class="card">
@@ -958,6 +982,12 @@ def section8():
   <p>With great power comes great responsibility. Understanding AI ethics isn't optional for managers — it's how you protect your customers, employees, and organization from real harm.</p>
 </div>
 
+<div class="card" style="background:#f8fafc;">
+  <h3 style="display:flex;align-items:center;gap:.5rem">📺 Video: AI Ethics Overview</h3>
+  <p style="font-size:.9rem;color:#475569;margin-bottom:1rem">A foundational look at the ethical challenges and governance frameworks that every AI-aware manager should understand.</p>
+  <a href="https://www.youtube.com/watch?v=1mnke1iSmf0" target="_blank" style="display:inline-block;background:#4f46e5;color:white;padding:.55rem 1.2rem;border-radius:8px;text-decoration:none;font-weight:600;font-size:.88rem">▶ Watch on YouTube</a>
+</div>
+
 <div class="card">
   <h3>⚠️ Why AI Ethics Matters <span class="badge">5a</span></h3>
   <p>AI systems make decisions that affect people's lives — hiring, lending, healthcare, criminal justice. When these systems are biased, opaque, or misused, the consequences are severe.</p>
@@ -1048,6 +1078,12 @@ def section9():
   <span class="hero-icon">🏢</span>
   <h2>Organizational Readiness</h2>
   <p>Technology is the easy part. The hard part is transforming people, processes, and culture to become an AI-driven organization. Here's your roadmap.</p>
+</div>
+
+<div class="card" style="background:#f8fafc;">
+  <h3 style="display:flex;align-items:center;gap:.5rem">📺 Video: Building an AI-Ready Organization</h3>
+  <p style="font-size:.9rem;color:#475569;margin-bottom:1rem">Watch this video on organizational change and readiness before working through the assessment and roadmap in this module.</p>
+  <a href="https://www.youtube.com/watch?v=INcYdavWDUk" target="_blank" style="display:inline-block;background:#4f46e5;color:white;padding:.55rem 1.2rem;border-radius:8px;text-decoration:none;font-weight:600;font-size:.88rem">▶ Watch on YouTube</a>
 </div>
 
 <div class="card">
