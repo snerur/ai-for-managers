@@ -12,9 +12,12 @@ Optional — server-side demo key (so visitors need no API key):
 """
 
 import os
+import logging
 from flask import Flask, render_template, request, jsonify
 from openai import OpenAI
 from dotenv import load_dotenv
+
+logging.getLogger("werkzeug").setLevel(logging.ERROR)
 
 load_dotenv()
 
